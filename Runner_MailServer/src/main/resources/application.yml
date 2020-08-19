@@ -1,0 +1,25 @@
+server:
+  port: 8096
+spring:
+  mail:
+    username: zzjava168@163.com
+    password: CQRPXJGVTBZYYCJT
+    host: smtp.163.com
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+
+  application:
+    name: Mailserver
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 39.99.158.56:8848  #注册中心地址
+      config:
+        server-addr: 39.99.158.56:8848  #配置中心地址
+    sentinel:  #实现服务器容错
+      transport:
+        port: 8719
+        dashboard: 39.99.158.56:8719

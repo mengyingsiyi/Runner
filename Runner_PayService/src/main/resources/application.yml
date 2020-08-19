@@ -1,0 +1,23 @@
+server:
+  port: 8098
+spring:
+  application:
+    name: orderserver  #服务名称
+  cloud:
+    nacos:
+      discovery: #使用Nacos作为服务的注册中心
+        server-addr: 39.99.161.137:8848  #注册中心地址
+  datasource:
+    derver: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://39.99.161.137:3306/db_orderapi?serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+  rabbitmq:
+    host: 182.92.77.178
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+mybatis:
+  mapper-locations: classpath*:mapper/*Mapper.xml

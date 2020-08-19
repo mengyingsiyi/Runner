@@ -1,0 +1,23 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: runnerplanapi
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 39.99.158.56:8848
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: 39.99.158.56:8080
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 10000 #设置连接的超时时间
+        readTimeout: 20000 #设置读取的超时时间
+
+  #sentinel:
+    #enabled: false #Feign启用Sentinel
+
