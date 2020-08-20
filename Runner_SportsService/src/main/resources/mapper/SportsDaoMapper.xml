@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.runner.sportsservice.dao.SportsDao">
+    <select id="selectactirity" resultType="com.runner.entity.pojo.Actirity">
+        select * from r_actirity where id=#{id}
+    </select>
+
+    <select id="selectcourses" resultType="java.lang.String">
+        select u_course from tb_user where u_tel= #{phone}
+    </select>
+
+    <update id="addcourses">
+        update tb_user set u_course = #{course} where u_tel = #{phone}
+    </update>
+</mapper>
