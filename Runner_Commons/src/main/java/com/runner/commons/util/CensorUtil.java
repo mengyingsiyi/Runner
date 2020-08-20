@@ -29,7 +29,6 @@ public class CensorUtil {
         if (StringUtil.checkStr(msg)) {
             JSONObject jsonObject = contentCensor.textCensorUserDefined(msg);
 //            log.info("文本审核的结果：" + jsonObject.getString("conclusion"));
-
             if (jsonObject.getInt("conclusionType") == 1) {
                 return true;
             } else {

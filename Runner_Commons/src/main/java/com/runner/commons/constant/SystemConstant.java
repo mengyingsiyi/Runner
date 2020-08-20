@@ -7,8 +7,10 @@ package com.runner.commons.constant;
  * @create: 2020-08-03 20:09
  **/
 public class SystemConstant {
-    public static final int OSSTYPE_IMG=1;
-    public static final String OSS_BUCKET = "lx-open";//文件上传
+    public static final String BUCKET_NAME = "runner-keep";
+    public static final int OSSTYPE_IMG = 1;
+    public static final int OSSTYPE_VIDEO = 2;
+    public static final int OSSTYPE_TEXT = 3;
     public static final String USER_TOKEN = "USERTOKEN";//存储用户信息
     public static final String TOKEN_HEADER = "token";
     public static final String USER_PHONE="userphone";//存储用户令牌
