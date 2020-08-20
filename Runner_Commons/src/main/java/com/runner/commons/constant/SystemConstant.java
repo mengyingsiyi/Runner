@@ -7,7 +7,7 @@ package com.runner.commons.constant;
  * @create: 2020-08-03 20:09
  **/
 public class SystemConstant {
-    public static final String BUCKET_NAME = "runner";
+    public static final String BUCKET_NAME = "runner-keep";
     public static final int OSSTYPE_IMG = 1;
     public static final int OSSTYPE_VIDEO = 2;
     public static final int OSSTYPE_TEXT = 3;
