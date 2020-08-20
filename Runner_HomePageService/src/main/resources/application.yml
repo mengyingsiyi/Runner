@@ -1,4 +1,3 @@
-
 spring:
   application:
     name: runnerhomepageservice
@@ -8,24 +7,23 @@ spring:
         server-addr: 39.99.158.56:8848
       config: #使用nacos作为服务的配置中心
         server-addr: 39.99.158.56:8848
-        #file-extension: yaml #更改远程配置的后缀名
-  #  sleuth:
-  #    sampler:
-  #      probability: 1 #采样率
-  #    zipkin:
-  #      sender:
-  #        type: web #使用http协议进行数据的传输
-  #      base-url: 39.99.158.56:9411/ #zipkin的控制台的地址
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://39.99.161.137:3306/video?serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/runner?serverTimezone=Asia/Shanghai
     username: root
-    password: root
+    password: 19980315
     type: com.alibaba.druid.pool.DruidDataSource
+  servlet:
+    multipart:
+      max-request-size: 100MB
+      max-file-size: 100MB
 mybatis:
-  mapper-locations: classpath*:mapper/*Mapper.xml
+  mapper-locations: classpath*:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 server:
   port: 8093
+
 
 
 

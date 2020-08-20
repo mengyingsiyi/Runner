@@ -17,8 +17,8 @@ import lombok.extern.slf4j.Slf4j;
  **/
 @Slf4j
 public class AliySmsUtil {
-    private static String key="LTAI4GKdcSaT2cC6678eB4MG";
-    private static String keysecret="tAnTOoaXq6nrdvbTmdRvJO2e5iLA4T";
+    private static String key="LTAI4FyPHKcD5hRqJpEGBxMa";
+    private static String keysecret="uKVVpnqo8X4Gf4PpdZ581cOIOJ64PQ";
 
     /**
      * 发送验证码
@@ -35,7 +35,7 @@ public class AliySmsUtil {
         request.setSysAction("SendSms");
         request.putQueryParameter("RegionId", "cn-hangzhou");
         request.putQueryParameter("PhoneNumbers", phone);
-        request.putQueryParameter("SignName", "eBooks");
+        request.putQueryParameter("SignName", "Runner");
         request.putQueryParameter("TemplateCode", "SMS_199175298");
         request.putQueryParameter("TemplateParam", "{\"code\":"+code+"}");
         try {
@@ -64,7 +64,7 @@ public class AliySmsUtil {
         request.setSysAction("SendSms");
         request.putQueryParameter("RegionId", "cn-hangzhou");
         request.putQueryParameter("PhoneNumbers", phone);
-        request.putQueryParameter("SignName", "来自邢朋辉的短信");
+        request.putQueryParameter("SignName", "来自Runner的短信");
         request.putQueryParameter("TemplateCode", "SMS_177258097");
         request.putQueryParameter("TemplateParam", "{\"code\":"+code+"}");
         try {

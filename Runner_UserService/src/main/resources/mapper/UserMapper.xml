@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.runner.userservice.dao.UserDao">
+
+    <resultMap id="User" type="com.runner.entity.pojo.User">
+        <id column="u_id" property="uId"/>
+        <result column="u_nickname" property="uNickname" />
+        <result column="u_tel" property="uTel" />
+        <result column="u_password" property="uPassword" />
+        <result column="u_head" property="uHead" />
+        <result column="u_sex" property="uSex"/>
+        <result column="u_height" property="uHeight" />
+        <result column="u_weight" property="uWeight" />
+        <result column="u_birth" property="uBirth" />
+        <result column="u_addr" property="uAddr" />
+        <result column="u_autograph" property="uAutograph" />
+        <result column="u_status" property="uStatus" />
+        <result column="u_level" property="uLevel"/>
+    </resultMap>
+
+    <select id="selectByTel" resultMap="User">
+        select * from tb_user where u_tel=#{tel}
+    </select>
+
+    <insert id="register" parameterType="com.runner.entity.pojo.User">
+        insert into tb_user(u_nickname,u_tel,u_password,u_sex,u_status,u_level)
+        values
+        (#{uNickname},#{uTel},#{uPassword},#{uSex},1,1)
+    </insert>
+</mapper>
