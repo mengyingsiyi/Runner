@@ -13,12 +13,17 @@ spring:
     username: root
     password: 19980315
     type: com.alibaba.druid.pool.DruidDataSource
+  servlet:
+    multipart:
+      max-request-size: 100MB
+      max-file-size: 100MB
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 server:
   port: 8093
+
 
 
 

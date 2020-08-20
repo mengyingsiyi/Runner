@@ -1,6 +1,7 @@
 package com.runner.homepage.dao;
 
 import com.runner.commons.dto.OssDto;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**

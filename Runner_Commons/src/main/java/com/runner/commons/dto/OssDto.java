@@ -13,9 +13,15 @@ import java.util.Date;
  */
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class OssDto {
+    private Integer oid;
     private Integer type;
     private String bname;
     private String objname;
+
+    public OssDto(Integer type, String bname, String objname) {
+        this.type = type;
+        this.bname = bname;
+        this.objname = objname;
+    }
 }

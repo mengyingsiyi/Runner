@@ -11,10 +11,7 @@ import java.util.Date;
  */
 @Data
 public class TalkDto {
-
-    private Integer talkUserId;
-
-    private Date talkCtime;
+    private Integer tid;
 
     private Integer talkType;
 

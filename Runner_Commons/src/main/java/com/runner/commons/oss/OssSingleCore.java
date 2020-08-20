@@ -1,15 +1,15 @@
 package com.runner.commons.oss;
 
+import com.aliyun.oss.HttpMethod;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
-import com.aliyun.oss.model.Callback;
-import com.aliyun.oss.model.CreateBucketRequest;
-import com.aliyun.oss.model.PutObjectRequest;
-import com.aliyun.oss.model.PutObjectResult;
+import com.aliyun.oss.model.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * @program: voter
@@ -21,8 +21,8 @@ public class OssSingleCore {
     private OSS client;
     String endpoint = "https://oss-cn-beijing.aliyuncs.com";
     // 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录RAM控制台创建RAM账号。
-    String accessKeyId = "";
-    String accessKeySecret = "";
+    String accessKeyId = "LTAI4G17JXg7mQroCWMELYkv";
+    String accessKeySecret = "nWFheORml3cXLoAw4eq0E60ch9KYmu";
     // 您的回调服务器地址，如http://oss-demo.aliyuncs.com:23450或http://127.0.0.1:9090。
     String callbackUrl = "http://127.0.0.1:9090";
     //单例模式的实现 ：懒汉、饿汉
@@ -89,6 +89,19 @@ public class OssSingleCore {
     //校验对象是否存在
     public boolean checkObjName(String bname,String objname){
         return client.doesObjectExist(bname, objname);
+    }
+
+    public String video(String bucketName,String objectName) {
+       String style = "video/snapshot,t_50000,f_jpg,w_800,h_600";
+        Calendar calendar=Calendar.getInstance();
+        calendar.add(Calendar.YEAR,3);
+        GeneratePresignedUrlRequest req = new GeneratePresignedUrlRequest(bucketName, objectName, HttpMethod.GET);
+        req.setExpiration(calendar.getTime());
+        req.setProcess(style);
+        URL signedUrl = client.generatePresignedUrl(req);
+        System.out.println(signedUrl);
+        client.shutdown();
+        return signedUrl.toString();
     }
 
 

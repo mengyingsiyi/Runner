@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @Description:
  * @author: 王永
@@ -17,8 +19,13 @@ public class OssController {
     @Autowired
     private OssService service;
 
-    @PostMapping("/upload.do")
-    public R upload(@RequestPart MultipartFile file){
-        return service.upload(file);
+    @PostMapping("/uploadImg.do")
+    public R uploadImg(@RequestPart MultipartFile file){
+        return service.uploadImg(file);
+    }
+
+    @PostMapping("/uploadVideo.do")
+    public R uploadVideo(@RequestPart MultipartFile file, HttpServletRequest request){
+        return service.uploadVideo(file,request);
     }
 }

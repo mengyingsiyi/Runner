@@ -1,6 +1,7 @@
 package com.runner.homepage.dao;
 
 import com.runner.commons.dto.TalkDto;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @Description:
@@ -8,5 +9,5 @@ import com.runner.commons.dto.TalkDto;
  * @date: 2020/8/20  10:52
  */
 public interface TalkDao {
-    int save(TalkDto dto);
+    int save(@Param("dto") TalkDto dto, @Param("uid") int uid);
 }
