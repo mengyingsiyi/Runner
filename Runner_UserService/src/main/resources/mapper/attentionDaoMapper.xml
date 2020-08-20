@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.runner.userservice.dao.attentionDao">
+    <insert id="addByFlayA" parameterType="com.runner.entity.pojo.attention" >
+      insert into r_attention (my_uid,other_id,flag)values(#{myuid},#{otherid},1)
+    </insert>
+    <insert id="addByFlayB" parameterType="com.runner.entity.pojo.attention" >
+        insert into r_attention (my_uid,other_id,flag)values(#{myuid},#{otherid},2)
+    </insert>
+    <insert id="addByFlayC" parameterType="com.runner.entity.pojo.attention" >
+        insert into r_attention (my_uid,other_id,flag)values(#{myuid},#{otherid},3)
+    </insert>
+    <select id="findAllByFlagA" parameterType="int" resultType="com.runner.commons.dto.userDto.attentionDto">
+        SELECT u.u_nickname AS unickname,u.u_head AS uhead FROM tb_user AS u LEFT JOIN (SELECT other_id FROM r_attention WHERE my_uid = #{my_uid} AND flag = 1) AS b ON u.u_id = b.other_id
+    </select>
+    <select id="findAllByID" parameterType="int" resultType="com.runner.commons.dto.userDto.attentionDto">
+        SELECT u.u_nickname AS unickname,u.u_head AS uhead FROM tb_user AS u LEFT JOIN (SELECT my_uid FROM r_attention WHERE other_id = #{my_uid} AND flag = 1) AS b ON u.u_id = b.my_uid
+    </select>
+</mapper>
