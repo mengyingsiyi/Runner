@@ -41,4 +41,5 @@ public class R<T> {
         r.setMsg(msg);
         return r;
     }
+
 }
