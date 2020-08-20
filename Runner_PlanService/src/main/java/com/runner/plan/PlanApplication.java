@@ -16,7 +16,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableDiscoveryClient // 注册与发现服务
 @EnableFeignClients // 调用
-@MapperScan("com.runner.planservice.dao")
+@MapperScan("com.runner.plan.dao")
 public class PlanApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(PlanApplication.class,args);
