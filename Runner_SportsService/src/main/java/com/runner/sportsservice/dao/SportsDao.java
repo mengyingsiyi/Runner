@@ -1,5 +1,6 @@
 package com.runner.sportsservice.dao;
 
+import com.runner.commons.dto.SportsDto.CoursesiDto;
 import com.runner.commons.dto.SportsDto.coursesDto;
 import com.runner.entity.pojo.Actirity;
 import org.springframework.stereotype.Repository;
@@ -12,6 +13,5 @@ public interface SportsDao {
     String selectcourses(String phone);
     //根据手机号添加课程
     int addcourses(coursesDto coursesDto);
-
 
 }

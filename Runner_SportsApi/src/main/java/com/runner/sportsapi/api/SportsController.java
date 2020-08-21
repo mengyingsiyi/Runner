@@ -1,5 +1,6 @@
 package com.runner.sportsapi.api;
-import com.runner.commons.dto.SportsDto.checkcoureseDto;
+import com.runner.commons.dto.SportsDto.CoursesiDto;
+import com.runner.commons.dto.SportsDto.addDto;
 import com.runner.commons.vo.R;
 import com.runner.sportsapi.service.Sportsservice;
 import io.swagger.annotations.Api;
@@ -22,16 +23,16 @@ public class SportsController {
         return sportsservice.actirity(id);
     }
 
-    @GetMapping("add/{id}")
+    @PostMapping("add.do")
     @ApiOperation(value = "添加课程")
-    public R add(@PathVariable String id){
-        return sportsservice.add(id);
+    public R add(@RequestBody addDto addDto, HttpServletRequest request){
+        return sportsservice.add(addDto,request);
     }
 
-    @GetMapping("cheakc/{phone}")
+    @PostMapping("cheakc.do")
     @ApiOperation(value = "查询课程")
-    public R cheakc(@PathVariable String phone){
-        return sportsservice.checkc(phone);
+    public R cheakc(@RequestBody CoursesiDto coursesiDto,HttpServletRequest request){
+        return sportsservice.checkc(coursesiDto,request);
     }
 
 

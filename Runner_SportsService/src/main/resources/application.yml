@@ -18,9 +18,9 @@ spring:
   #      base-url: 39.99.158.56:9411/ #zipkin的控制台的地址
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/runner?serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://39.99.161.137:3306/runner?serverTimezone=Asia/Shanghai
     username: root
-    password: AaA121400
+    password: root
     type: com.alibaba.druid.pool.DruidDataSource
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml

@@ -10,6 +10,7 @@
         select u_course from tb_user where u_tel= #{phone}
     </select>
 
+
     <update id="addcourses">
         update tb_user set u_course = #{course} where u_tel = #{phone}
     </update>
