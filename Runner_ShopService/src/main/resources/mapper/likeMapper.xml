@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.runner.shop.dao.LikeDao">
+     <select id="selectCount" resultType="java.lang.Integer">
+SELECT COUNT(*) FROM tb_like WHERE flag=#{flag}
+     </select>
+   <select id="select" resultType="java.lang.Integer">
+SELECT flag  FROM  tb_like WHERE user_id=#{uid}  AND order_id=#{oid}
+   </select>
+    <update id="update" >
+UPDATE tb_like SET flag =0 WHERE user_id=#{uid}  AND order_id=#{oid}
+    </update>
+       <insert id="save">
+          INSERT INTO tb_like (user_id,order_id,like_time,flag) VALUES(#{uid},#{oid},now(),1)
+       </insert>
+    <update id="update1" >
+UPDATE tb_like SET flag =1 WHERE user_id=#{uid}  AND order_id=#{oid}
+    </update>
+
+    <resultMap id="sss" type="com.runner.entity.pojo.Likes">
+        <id column="like_id" property="id"></id>
+        <result column="user_id" property="uid"></result>
+        <result column="order_id" property="oid"></result>
+        <result column="like_time" property="ctime"></result>
+    </resultMap>
+    <select id="selectByDto" resultMap="sss">
+SELECT *  FROM  tb_like WHERE user_id=#{uid}  AND order_id=#{oid}
+   </select>
+</mapper>

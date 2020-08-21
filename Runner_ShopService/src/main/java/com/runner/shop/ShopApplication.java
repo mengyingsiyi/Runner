@@ -7,6 +7,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @Description:
@@ -14,6 +15,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @date: 2020/8/19  15:17
  */
 @SpringBootApplication
+@EnableTransactionManagement //开启事务
 @EnableDiscoveryClient // 注册与发现服务
 @EnableFeignClients // 调用
 @MapperScan("com.runner.shop.dao")  // 扫描 dao成
