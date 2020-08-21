@@ -32,4 +32,7 @@ public interface UserService {
 
     @PostMapping("/user/madeCode")
     R madeCode(@RequestParam String tel);
+
+    @PostMapping("/user/logout")
+    R logout(@RequestParam String token);
 }

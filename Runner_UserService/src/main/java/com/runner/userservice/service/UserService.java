@@ -21,4 +21,6 @@ public interface UserService {
     R loginCode(UserCodeLoginDto codeLoginDto);
 
     R madeCode(String tel);
+
+    R logout(String token);
 }

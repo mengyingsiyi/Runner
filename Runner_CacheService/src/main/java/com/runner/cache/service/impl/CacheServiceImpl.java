@@ -93,6 +93,7 @@ public class CacheServiceImpl implements CacheService {
     public boolean del(String key) {
         redisTemplate.delete(key);
         stringRedisTemplate.delete(key);
+        System.out.println("aa"+key);
         return true;
     }
 

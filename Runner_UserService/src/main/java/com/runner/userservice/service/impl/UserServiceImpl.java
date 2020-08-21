@@ -1,5 +1,6 @@
 package com.runner.userservice.service.impl;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.fastjson.JSON;
 import com.runner.cache.exception.CacheException;
 import com.runner.commons.constant.SystemConstant;
@@ -89,7 +90,7 @@ public class UserServiceImpl implements UserService {
         if (!cacheService.check(SystemConstant.USER_PHONE+loginDto.getUTel().trim())) {
             //校验账户是否存在
             User user = userDao.selectByTel(loginDto.getUTel());
-            System.out.println(user);
+            //System.out.println(user);
             if (user!=null) {
                 //说明有这个账户，可以进行密码对比
                 if (user.getUPassword().equals(EncryptUtil.rsaEnc(key,loginDto.getUPassword()))) {
@@ -97,7 +98,7 @@ public class UserServiceImpl implements UserService {
                     String token = JwtUtil.creatJwt(user.getUTel().trim());
                     cacheService.set(SystemConstant.USER_PHONE+loginDto.getUTel(),SystemConstant.TOKEN_TIME,user.getUTel());
                     cacheService.set(SystemConstant.USER_TOKEN+token,SystemConstant.TOKEN_TIME,JSON.toJSONString(user));
-                    return R.ok("登好了，滚去耍吧");
+                    return R.ok("登好了，滚去耍吧",token);
                 }
                 return R.fail("密码都不对，给爷爬");
             }
@@ -167,11 +168,46 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public R madeCode(String tel) {
-        int i = NumUtil.creatCode(6);
-        cacheService.set(SystemConstant.USER_CODE+tel,SystemConstant.CODE_TIME,String.valueOf(i));
-        AliySmsUtil.sendSmsCode(tel,i);
-        return R.ok(i);
+        if (null!=userDao.selectByTel(tel)) {
+            String code = NumUtil.creatCode(6) + "";
+            if (AliySmsUtil.sendSmsCode(tel,code)) {
+                cacheService.set(SystemConstant.USER_CODE+tel,SystemConstant.TOKEN_TIME,String.valueOf(code));
+                return R.ok("发送了，眼睛盯紧点",code);
+            }
+                return R.fail("发送失败，等下别急");
+        }
+        return R.fail("还没注册嘞  滚犊子");
     }
 
+    @Override
+    public R logout(String token) {
+        //判断令牌是否存在，不存在直接提示已退出
+        if (cacheService.check(SystemConstant.USER_TOKEN + token)) {
+            System.out.println("redis里存在token--------------------------->" + token);
+            User user = JSON.parseObject(cacheService.get(SystemConstant.USER_TOKEN + token), User.class);
+            System.out.println("获取到的User------------------>" + user);
+            if (null != user) {
+                //删除redis里的user信息
+                cacheService.del(SystemConstant.USER_PHONE + user.getUTel());
+                cacheService.del(SystemConstant.USER_TOKEN + token);
+                return R.ok("退了退了");
+            }
+        }
+        return R.fail("都退八百年了，还退个毛线啊");
+        /*if (StringUtil.checkStr(token)){
+            System.out.println("a");
+            User user = JSON.parseObject(cacheService.get(SystemConstant.USER_TOKEN + token), User.class);
+            System.out.println("logout_____"+user);
+            if (null!=user) {
+                //删除redis里的user信息
+                cacheService.del(SystemConstant.USER_PHONE+user.getUTel());
+                cacheService.del(SystemConstant.USER_TOKEN+token);
+                R.ok("退了退了");
+            }
+
+        }
+        return R.fail("都退八百年了，还退个毛线啊");
+    }*/
+    }
 
 }

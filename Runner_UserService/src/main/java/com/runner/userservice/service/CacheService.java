@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @FeignClient("cacheserver")
 public interface CacheService {
-    @PostMapping("/api/cache/savestr.do")
+    @PostMapping("/api/cache/getstr.do")
     String get(@RequestParam String key);
 
     @PostMapping("/api/cache/check.do")
