@@ -1,7 +1,7 @@
 package com.runner.homepage.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.runner.commons.dto.OssDto;
+import com.runner.commons.constant.SystemConstant;
 import com.runner.commons.dto.PicDto;
 import com.runner.commons.dto.TalkDto;
 import com.runner.commons.dto.VideoDto;
@@ -41,12 +41,19 @@ public class TalkServiceImpl implements TalkService {
     @Autowired
     private CacheService cacheService;
 
+    /**
+     * 发布动态接口
+     * @param dto
+     * @param file 上传的文件
+     * @param token 用户令牌
+     * @return
+     */
     @Override
     public R save(TalkDto dto, MultipartFile file, String token) {
         if (StringUtil.checkStr(token)) {
             if (dto != null) {
-                if (cacheService.check(token)) {
-                    String userStr = cacheService.get(token);
+                if (cacheService.check(SystemConstant.USER_TOKEN+token)) {
+                    String userStr = cacheService.get(SystemConstant.USER_TOKEN+token);
                     User user = JSON.parseObject(userStr, User.class);
                     if (null != user) {
                         if (dao.save(dto,user.getUId()) > 0) {

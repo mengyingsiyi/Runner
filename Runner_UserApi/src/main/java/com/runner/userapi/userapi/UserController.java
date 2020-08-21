@@ -57,4 +57,11 @@ public class UserController {
         System.out.println(tel);
         return userService.madeCode(tel);
     }
+
+    @ApiOperation("退出登录")
+    @PostMapping("/logout")
+    public R logout(@RequestParam String token) {
+        //System.out.println(token);
+        return userService.logout(token);
+    }
 }

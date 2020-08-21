@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.runner.shop.dao.ImgUrlDao">
+     <resultMap id="cc" type="com.runner.commons.dto.ShopDto.ImgUrlDto">
+         <result column="shop_img_url" property="imgUrl"></result>
+     </resultMap>
+   <select id="imgList" resultMap="cc">
+      SELECT * FROM tb_shop_spu_img ssi WHERE ssi.shop_id=#{id}
+   </select>
+</mapper>

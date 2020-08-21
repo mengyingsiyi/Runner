@@ -55,7 +55,7 @@ public class CacheServiceImpl implements CacheService {
             if (expireTimeSeconds < -1){
                 expireTimeSeconds = -1;
             }
-            stringRedisTemplate.opsForValue().set(key,value,expireTimeSeconds, TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set(key,value,expireTimeSeconds, TimeUnit.SECONDS);
             return true;
         } catch (Exception e) {
 //            log.error("存储异常");
@@ -93,6 +93,7 @@ public class CacheServiceImpl implements CacheService {
     public boolean del(String key) {
         redisTemplate.delete(key);
         stringRedisTemplate.delete(key);
+        System.out.println("aa"+key);
         return true;
     }
 

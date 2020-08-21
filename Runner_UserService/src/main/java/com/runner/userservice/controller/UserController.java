@@ -70,4 +70,14 @@ public class UserController {
     public R madeCode(@RequestParam String tel) {
         return userService.madeCode(tel);
     }
+
+    /**
+     * 退出登录
+     * @param token
+     * @return
+     */
+    @PostMapping("/logout")
+    public R logout(@RequestParam String token) {
+        return userService.logout(token);
+    }
 }
