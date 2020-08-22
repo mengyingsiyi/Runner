@@ -1,6 +1,7 @@
 package com.runner.shop.dao;
 
 import com.runner.commons.dto.ShopDto.GoodsDto;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,4 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GoodsDao {
     GoodsDto  selectById(Integer id);
+    @Select("")
+    Integer selectInventory(Integer shopId);
 }
