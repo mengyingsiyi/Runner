@@ -7,4 +7,6 @@ package com.runner.userservice.dao;
  * @Version V1.0
  */
 public interface dynamicDao {
+    //查看我的动态
+
 }
