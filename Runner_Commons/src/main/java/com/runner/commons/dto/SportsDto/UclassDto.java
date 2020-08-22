@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class addDto {
-    private  String id;
+@AllArgsConstructor
+public class UclassDto {
+    private Integer c_id;
 }

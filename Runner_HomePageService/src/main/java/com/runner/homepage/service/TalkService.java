@@ -1,6 +1,7 @@
 package com.runner.homepage.service;
 
 import com.runner.commons.dto.TalkDto;
+import com.runner.commons.dto.homedto.HomeTalkDto;
 import com.runner.commons.vo.R;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,4 +12,5 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface TalkService {
     R save(TalkDto dto,MultipartFile file,String token);
+    R findTalk();
 }

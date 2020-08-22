@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.runner.homepage.dao.TalkDao">
+    <resultMap id="findTalk" type="com.runner.commons.dto.homedto.HomeTalkDto">
+        <id column="talk_id" property="talkId"></id>
+        <result column="talk_content" property="content"></result>
+        <result column="u_nickname" property="nickname"></result>
+        <result column="u_head" property="head"></result>
+        <result column="look_count" property="lookcount"></result>
+        <collection property="picurl" ofType="com.runner.commons.dto.homedto.HomePicDto">
+            <result column="pic_url" property="picurl"></result>
+        </collection>
+    </resultMap>
     <insert id="save" useGeneratedKeys="true" keyProperty="dto.tid">
         INSERT INTO t_talk(talk_user_id,talk_ctime,talk_type,talk_content,talk_topic_id)
         VALUES(#{uid},now(),#{dto.talkType},#{dto.talkContent},#{dto.talkTopicId})
     </insert>
+    <select id="findHomeTalk" resultMap="findTalk">
+        SELECT t.`talk_id` ,u.`u_nickname` ,u.`u_head` ,t.`talk_content` ,t.`look_count` ,p.`pic_url`  FROM t_talk t
+        INNER JOIN t_picture p
+        ON p.`pic_talk_id` = t.`talk_id`
+        INNER JOIN tb_user u
+        ON t.`talk_user_id` = u.`u_id`
+    </select>
 </mapper>
