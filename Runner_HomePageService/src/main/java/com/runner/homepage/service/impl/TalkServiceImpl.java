@@ -5,6 +5,7 @@ import com.runner.commons.constant.SystemConstant;
 import com.runner.commons.dto.PicDto;
 import com.runner.commons.dto.TalkDto;
 import com.runner.commons.dto.VideoDto;
+import com.runner.commons.dto.homedto.HomeTalkDto;
 import com.runner.commons.util.StringUtil;
 import com.runner.commons.vo.R;
 import com.runner.entity.pojo.User;
@@ -18,6 +19,8 @@ import com.runner.homepage.service.TalkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * @Description:
@@ -91,5 +94,18 @@ public class TalkServiceImpl implements TalkService {
             }
         }
         return R.fail("未知错误");
+    }
+
+    /**
+     * 推荐动态列表
+     * @return
+     */
+    @Override
+    public R findTalk() {
+        List<HomeTalkDto> homeTalk = dao.findHomeTalk();
+        if (homeTalk != null && homeTalk.size() > 0){
+            return R.ok(homeTalk);
+        }
+        return R.fail("还没有找到动态哟");
     }
 }

@@ -9,6 +9,7 @@ import lombok.Data;
  */
 @Data
 public class PicDto {
+    private Integer pid;
     private int talkId;
     private String picUrl;
     private int ossId;

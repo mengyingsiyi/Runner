@@ -22,4 +22,9 @@ public class TalkController {
     public R save(@RequestJson TalkDto dto, @RequestJson MultipartFile file, @RequestJson String token){
         return service.save(dto,file,token);
     }
+
+    @PostMapping("/findHomeTalk.do")
+    public R findHomeTalk(){
+        return service.findTalk();
+    }
 }
