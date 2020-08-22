@@ -18,8 +18,8 @@ import lombok.extern.slf4j.Slf4j;
  **/
 @Slf4j
 public class AliySmsUtil {
-    private static String key = "LTAI4G55jTKTHNtuBGDbAHdD";
-    private static String keysecret = "UoY5SJXUrkq0wL8Uk9Atrqyga4Q7pF";
+    private static String key = "LTAI4FyPHKcD5hRqJpEGBxMa";
+    private static String keysecret = "uKVVpnqo8X4Gf4PpdZ581cOIOJ64PQ";
 
 
     /**
@@ -27,7 +27,7 @@ public class AliySmsUtil {
      * @param phone 手机号
      * @param code   验证码
      */
-    public static boolean sendSmsCode(String phone,String code){
+    public static boolean sendSmsCode(String phone,int code){
         System.err.println(phone+"---"+code);
         DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou",
                 key, keysecret);
@@ -40,8 +40,8 @@ public class AliySmsUtil {
         request.setSysAction("SendSms");
         request.putQueryParameter("RegionId", "cn-hangzhou");
         request.putQueryParameter("PhoneNumbers", phone);
-        request.putQueryParameter("SignName", "Running");
-        request.putQueryParameter("TemplateCode", "SMS_200180370");
+        request.putQueryParameter("SignName", "Runner");
+        request.putQueryParameter("TemplateCode", "SMS_111111");
         request.putQueryParameter("TemplateParam", "{\"code\":"+code+"}");
         try {
             CommonResponse response = client.getCommonResponse(request);
@@ -73,7 +73,7 @@ public class AliySmsUtil {
         request.putQueryParameter("RegionId", "cn-hangzhou");
         request.putQueryParameter("PhoneNumbers", phone);
         request.putQueryParameter("SignName", "来自Runner的短信");
-        request.putQueryParameter("TemplateCode", "SMS_177258097");
+        request.putQueryParameter("TemplateCode", "SMS_1111111");
         request.putQueryParameter("TemplateParam", "{\"code\":"+code+"}");
         try {
             CommonResponse response = client.getCommonResponse(request);

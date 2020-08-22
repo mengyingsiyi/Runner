@@ -12,7 +12,11 @@ public interface PlanDao {
     //添加计划
     int addPlan(PlanInfo planInfo);
 
+    //根据用户id查询查询计划相关信息
+    int findPlanById(Integer userId);
     //根据用户id修改计划信息
+    int updatePlan(PlanInfo planInfo);
+
 
 
 }

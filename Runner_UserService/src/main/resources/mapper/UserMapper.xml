@@ -28,4 +28,10 @@
         values
         (#{uNickname},#{uTel},#{uPassword},#{uSex},1,1)
     </insert>
+
+    <update id="uodatePassword" parameterType="com.runner.entity.pojo.User">
+        update tb_user
+        set u_password=#{uPassword}
+        where u_tel=#{uTel}
+    </update>
 </mapper>

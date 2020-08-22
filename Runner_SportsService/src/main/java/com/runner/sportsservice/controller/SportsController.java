@@ -1,5 +1,7 @@
 package com.runner.sportsservice.controller;
 
+import com.runner.commons.dto.SportsDto.CoursesiDto;
+import com.runner.commons.dto.SportsDto.addDto;
 import com.runner.commons.dto.SportsDto.checkcoureseDto;
 import com.runner.commons.vo.R;
 import com.runner.sportsservice.service.Sportsservice;
@@ -28,14 +30,14 @@ public class SportsController {
         return sportsservice.actiritys(id);
     }
 
-    @GetMapping("addcourses.do")
-    public R addcourses(@RequestParam String id){
-        return sportsservice.addcourses(id);
+    @PostMapping("addcourses.do")
+    public R addcourses(@RequestBody addDto addDto,HttpServletRequest request){
+        return sportsservice.addcourses(addDto,request);
     }
 
-    @GetMapping("cheakcourses.do")
-    public R checkcourses(@RequestParam String phone){
-        return sportsservice.checkcourses(phone);
+    @PostMapping("cheakcourses.do")
+    public R checkcourses(@RequestBody CoursesiDto coursesiDto,HttpServletRequest request){
+        return sportsservice.checkcourses(coursesiDto,request);
     }
 
 }

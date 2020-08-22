@@ -7,6 +7,7 @@ import com.runner.commons.constant.SystemConstant;
 import com.runner.commons.dto.UserCodeLoginDto;
 import com.runner.commons.dto.UserLoginDto;
 import com.runner.commons.dto.UserRegisterDto;
+import com.runner.commons.dto.userDto.UpdatePasswordDto;
 import com.runner.commons.jwt.JwtUtil;
 import com.runner.commons.sms.AliySmsUtil;
 import com.runner.commons.util.*;
@@ -144,11 +145,22 @@ public class UserServiceImpl implements UserService {
     }*/
 
 
+    /**
+     * 验证码登录
+     * @param codeLoginDto 验证码登录封装的登陆手机号  和验证码
+     * @return
+     */
     @Override
     public R loginCode(UserCodeLoginDto codeLoginDto) {
-        if (!cacheService.check(SystemConstant.USER_CODE+codeLoginDto.getUTel())) {
+        boolean check = cacheService.check(SystemConstant.USER_CODE + codeLoginDto.getUTel());
+        System.out.println(check);
+        if (true==check) {
             //缓存里没有这个验证码  需要发送验证码  然后和cache里边的验证码对比
-            if (codeLoginDto.getCode().equals(cacheService.get(SystemConstant.USER_CODE+codeLoginDto.getUTel()))){
+            /*String code = cacheService.get(SystemConstant.USER_CODE + codeLoginDto.getUTel());
+            String substring = code.substring(1);
+            String substring1 = substring.substring(0,substring.length()-1);*/
+            String string1 = cacheService.get(SystemConstant.USER_CODE + codeLoginDto.getUTel()).replaceAll("\"", "");
+            if (codeLoginDto.getCode().equals(string1)){
                 //说明验证码验证通过，存到令牌中，然后存入缓存中
                 String token = JwtUtil.creatJwt(codeLoginDto.getUTel());
                 User user = userDao.selectByTel(codeLoginDto.getUTel());
@@ -158,7 +170,7 @@ public class UserServiceImpl implements UserService {
             }
             return R.fail("验证码都给整错了，还能干点啥");
         }
-        return R.fail("已经登过了   闹哪样？");
+        return R.fail("先获取验证码吧");
     }
 
     /**
@@ -169,9 +181,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public R madeCode(String tel) {
         if (null!=userDao.selectByTel(tel)) {
-            String code = NumUtil.creatCode(6) + "";
+            int code = NumUtil.creatCode(6);
+            System.out.println("验证码是------------------->"+code);
             if (AliySmsUtil.sendSmsCode(tel,code)) {
-                cacheService.set(SystemConstant.USER_CODE+tel,SystemConstant.TOKEN_TIME,String.valueOf(code));
+                cacheService.set(SystemConstant.USER_CODE+tel,SystemConstant.MAIL_CODE_TIME,String.valueOf(code));
                 return R.ok("发送了，眼睛盯紧点",code);
             }
                 return R.fail("发送失败，等下别急");
@@ -179,6 +192,11 @@ public class UserServiceImpl implements UserService {
         return R.fail("还没注册嘞  滚犊子");
     }
 
+    /**
+     * 退出登录
+     * @param token 已登录账户的token
+     * @return
+     */
     @Override
     public R logout(String token) {
         //判断令牌是否存在，不存在直接提示已退出
@@ -208,6 +226,23 @@ public class UserServiceImpl implements UserService {
         }
         return R.fail("都退八百年了，还退个毛线啊");
     }*/
+    }
+
+    @Override
+    public R updatePassword(UpdatePasswordDto passwordDto) {
+        //判断用户输入的验证码和redis的验证码是否一致
+        String code = cacheService.get(SystemConstant.USER_CODE + passwordDto.getUTel()).replaceAll("\"", "");
+
+        if (passwordDto.getCode().equals(code)){
+            //验证码核对好   先把用户输入的密码转换成密文
+            passwordDto.setUPassword(EncryptUtil.rsaEnc(key,passwordDto.getUPassword()));
+            //修改密码操作
+            if (userDao.uodatePassword(passwordDto)>0){
+                //修改成功
+                return R.ok("改好了 滚");
+            }
+        }
+        return R.fail("发动机发生故障,修改失败");
     }
 
 }
