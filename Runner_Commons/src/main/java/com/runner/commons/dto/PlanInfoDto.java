@@ -14,18 +14,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PlanInfoDto {
-    private long planInfoId;
+    private Integer planInfoId;
     private String planName;
-    private long planLevel;
-    private long fitnessGoals;
-    private long choiceRun;
-    private long choiceInstrument;
+    private Integer planLevel;
+    private Integer fitnessGoals;
+    private Integer choiceRun;
+    private Integer choiceInstrument;
     private Double inputHeight;
     private Double inputWeight;
     private Double weightGoals;
-    private long weekExerciseDays;
-    private long dayExerciseMinute;
-    private long planTime;
+    private Integer weekExerciseDays;
+    private Integer dayExerciseMinute;
+    private Integer planTime;
     //运动器械
     private String instrumentName;
     //增肌目标

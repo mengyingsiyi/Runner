@@ -29,4 +29,11 @@
         <select id="findPlanById" resultType="int">
             select count(*) from plan_info where user_id = #{userId}
         </select>
+
+        <select id="findPlanInfo" resultType="com.runner.entity.pojo.PlanInfo">
+            select plan_name,plan_level,fitness_goals,choice_run,choice_instrument
+                ,input_height,input_weight,weight_goals,week_exercise_days,
+                day_exercise_minute,plan_time from plan_info where plan_info_id=#{planInfoId}
+                and user_id=#{userId}
+        </select>
     </mapper>

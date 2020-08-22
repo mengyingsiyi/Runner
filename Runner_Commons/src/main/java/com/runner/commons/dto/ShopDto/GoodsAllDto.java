@@ -1,6 +1,6 @@
 package com.runner.commons.dto.ShopDto;
 
-import com.sun.scenario.effect.impl.prism.PrImage;
+//import com.sun.scenario.effect.impl.prism.PrImage;
 import lombok.Data;
 
 /**

@@ -1,5 +1,6 @@
 package com.runner.plan.dao;
 
+import com.runner.commons.dto.GainMuscleDto;
 import com.runner.entity.pojo.GainMuscle;
 
 /**
@@ -11,4 +12,10 @@ import com.runner.entity.pojo.GainMuscle;
 public interface GainMuscleDao {
     //根据详情表id修改增肌目标信息
     int updateGainMuscleById(GainMuscle gainMuscle);
+
+    //新增增肌计划
+    int saveGainMuscle(GainMuscle gainMuscle);
+
+    //根据详情表id查询增肌目标信息
+    GainMuscleDto getGainMuscle(Integer planInfoId);
 }

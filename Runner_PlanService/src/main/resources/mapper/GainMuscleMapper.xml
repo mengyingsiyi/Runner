@@ -6,4 +6,13 @@
         update gain_muscle set gain_muscle_part = #{gainMusclePart},part_status=#{partStatus}
             ,improve_status=#{improveStatus} where plan_info_id=3{planInfoId}
     </update>
+
+    <insert id="saveGainMuscle">
+        insert into gain_muscle(gain_muscle_part,part_status,improve_status,plan_info_id) values (#{gainMusclePart},
+            #{partStatus},#{improveStatus},#{planInfoId})
+    </insert>
+
+    <select id="getGainMuscle" resultType="com.runner.commons.dto.GainMuscleDto">
+        select gain_muscle_part,part_status,improve_status from gain_muscle where plan_info_id =#{planInfoId}
+    </select>
     </mapper>

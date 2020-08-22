@@ -1,6 +1,8 @@
 package com.runner.plan.dao;
 
+import com.runner.commons.dto.PlanInfoDto;
 import com.runner.entity.pojo.PlanInfo;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @program: runner
@@ -16,6 +18,9 @@ public interface PlanDao {
     int findPlanById(Integer userId);
     //根据用户id修改计划信息
     int updatePlan(PlanInfo planInfo);
+    //根据用户id和计划id查询相关信息
+    PlanInfo findPlanInfo(@Param("planInfoId") Integer planInfoId, @Param("userId") Integer userId);
+
 
 
 

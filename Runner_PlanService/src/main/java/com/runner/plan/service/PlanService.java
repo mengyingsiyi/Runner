@@ -12,7 +12,6 @@ import com.runner.commons.vo.R;
 public interface PlanService {
     //添加或修改计划
     R addOrUpdatePlan(PlanInfoDto planInfoDto,String token);
-    //获取用户id
-
-
+    //获取用户id和计划id查询计划
+    R findPlanById(Integer planInfoId,String token);
 }

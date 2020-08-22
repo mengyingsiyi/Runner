@@ -4,4 +4,11 @@
         <update id="updateInstrumentById">
             update plan_instrument set instrument_name=#{instrumentName} where plan_info_id = #{planInfoId}
         </update>
+        <insert id="saveInstrument">
+            insert into plan_instrument(instrument_name,plan_info_id) values (#{instrumentName},#{planInfoId})
+        </insert>
+
+        <select id="findInstrumentById" resultType="com.runner.entity.pojo.PlanInstrument">
+            select instrument_name from plan_instrument where #{planInfoId}
+        </select>
     </mapper>
