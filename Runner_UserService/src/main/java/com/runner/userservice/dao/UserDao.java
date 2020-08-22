@@ -1,8 +1,8 @@
 package com.runner.userservice.dao;
 
-import com.runner.commons.dto.UserRegisterDto;
+import com.runner.commons.dto.userDto.UpdatePasswordDto;
 import com.runner.entity.pojo.User;
-import org.springframework.stereotype.Repository;
+
 
 /**
  * @paragram: Runner
@@ -13,5 +13,7 @@ import org.springframework.stereotype.Repository;
 public interface UserDao {
     User selectByTel(String tel);
     int register(User user);
+
+    int uodatePassword(UpdatePasswordDto passwordDto);
 
 }
