@@ -1,7 +1,9 @@
 package com.runner.sportsapi.api;
 import com.runner.commons.dto.SportsDto.CoursesiDto;
-import com.runner.commons.dto.SportsDto.addDto;
 import com.runner.commons.vo.R;
+import com.runner.entity.pojo.Running;
+import com.runner.entity.pojo.Uactiriy;
+import com.runner.entity.pojo.Uclass;
 import com.runner.sportsapi.service.Sportsservice;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,17 +26,27 @@ public class SportsController {
     }
 
     @PostMapping("add.do")
-    @ApiOperation(value = "添加课程")
-    public R add(@RequestBody addDto addDto, HttpServletRequest request){
-        return sportsservice.add(addDto,request);
+    @ApiOperation(value = "添加用户课程")
+    public R add(@RequestBody Uclass uclass, HttpServletRequest request){
+        return sportsservice.add(uclass,request);
     }
 
     @PostMapping("cheakc.do")
-    @ApiOperation(value = "查询课程")
-    public R cheakc(@RequestBody CoursesiDto coursesiDto,HttpServletRequest request){
-        return sportsservice.checkc(coursesiDto,request);
+    @ApiOperation(value = "查询用户课程")
+    public R cheakc(@RequestBody Uclass uclass,HttpServletRequest request){
+        return sportsservice.checkc(uclass,request);
     }
 
+    @PostMapping("addaciritys.do")
+    @ApiOperation(value = "添加用户活动")
+    public R addaciritys(@RequestBody Uactiriy uactiriy, HttpServletRequest request){
+        return sportsservice.addaciritys(uactiriy,request);
+    }
 
+    @PostMapping("addrunning.do")
+    @ApiOperation(value = "添加用户跑步里程")
+    public R addrunning(@RequestBody Running running, HttpServletRequest request){
+        return sportsservice.addrunning(running,request);
+    }
 
 }

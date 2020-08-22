@@ -23,6 +23,5 @@ public class User {
     private String uAutograph;
     private Integer uStatus;
     private Integer uLevel;
-    private String course;
 
 }

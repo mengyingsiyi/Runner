@@ -3,8 +3,10 @@ package com.runner.sportsapi.service.impl;
 
 import com.runner.commons.constant.SystemConstant;
 import com.runner.commons.dto.SportsDto.CoursesiDto;
-import com.runner.commons.dto.SportsDto.addDto;
 import com.runner.commons.vo.R;
+import com.runner.entity.pojo.Running;
+import com.runner.entity.pojo.Uactiriy;
+import com.runner.entity.pojo.Uclass;
 import com.runner.sportsapi.service.Sportsservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -27,21 +29,39 @@ public class Sportsserviceimpl implements Sportsservice {
     }
 
     @Override
-    public R add(addDto addDto, HttpServletRequest request) {
+    public R add(Uclass uclass, HttpServletRequest request) {
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.setContentType(MediaType.APPLICATION_JSON);
         requestHeaders.set(SystemConstant.TOKEN_HEADER,request.getHeader(SystemConstant.TOKEN_HEADER));
-        HttpEntity<addDto> requestEntity = new HttpEntity<>(addDto, requestHeaders);
+        HttpEntity<Uclass> requestEntity = new HttpEntity<>(uclass, requestHeaders);
         return restTemplate.postForObject("http://runnersportservice/sports/addcourses.do", requestEntity, R.class);
     }
 
     @Override
-    public R checkc(CoursesiDto coursesiDto, HttpServletRequest request) {
+    public R checkc(Uclass uclass, HttpServletRequest request) {
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.setContentType(MediaType.APPLICATION_JSON);
         requestHeaders.set(SystemConstant.TOKEN_HEADER,request.getHeader(SystemConstant.TOKEN_HEADER));
-        HttpEntity<CoursesiDto> requestEntity = new HttpEntity<>(coursesiDto, requestHeaders);
+        HttpEntity<Uclass> requestEntity = new HttpEntity<>(uclass, requestHeaders);
         return restTemplate.postForObject("http://runnersportservice/sports/cheakcourses.do",requestEntity, R.class);
+    }
+
+    @Override
+    public R addaciritys(Uactiriy uactiriy, HttpServletRequest request) {
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+        requestHeaders.set(SystemConstant.TOKEN_HEADER,request.getHeader(SystemConstant.TOKEN_HEADER));
+        HttpEntity<Uactiriy> requestEntity = new HttpEntity<>(uactiriy, requestHeaders);
+        return restTemplate.postForObject("http://runnersportservice/sports/addaciritys.do", requestEntity, R.class);
+    }
+
+    @Override
+    public R addrunning(Running running, HttpServletRequest request) {
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+        requestHeaders.set(SystemConstant.TOKEN_HEADER,request.getHeader(SystemConstant.TOKEN_HEADER));
+        HttpEntity<Running> requestEntity = new HttpEntity<>(running, requestHeaders);
+        return restTemplate.postForObject("http://runnersportservice/sports/addrunning.do", requestEntity, R.class);
     }
 
 }
