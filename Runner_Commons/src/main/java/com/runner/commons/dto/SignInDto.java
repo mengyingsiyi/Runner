@@ -11,9 +11,9 @@ import java.util.Date;
  */
 @Data
 public class SignInDto {
-    private Integer count;
-    private Integer continueSign;
-    private String nickname;
+    private Integer count;   //  总签到天数
+    private Integer continueSign; // 规定的时间
+//    private String nickname;
     private Date signTime;
 
 

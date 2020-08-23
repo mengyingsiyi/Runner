@@ -2,19 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.runner.shop.dao.SignInDao">
     <insert id="save">
-        insert into t_qiandao (uid,flag,ctime,count,continueSign,utime)
+        insert into tb_qiandao (uid,flag,ctime,total,lianxu,uptime)
         values (#{uid},1,now(),1,1,now())
     </insert>
     <update id="updateUTime">
-        update t_qiandao set utime = #{now()} where uid = #{uid}
+        update tb_qiandao set uptime = #{now()} where uid = #{uid}
     </update>
     <update id="updateContinueSign">
-        update t_qiandao set continueSign = #{continueSign} ,count  = count + 1,utime = now() where uid = #{uid}
+        update tb_qiandao set lianxu = #{lianxu} ,total  = total + 1,uptime = now() where uid = #{uid}
     </update>
 
     <select id="findCountDay" resultType="com.runner.commons.dto.SignInDto">
-        SELECT u.`nickname`,s.`utime` signTime,s.`count`,s.`continueSign` FROM t_qiandao s
-        INNER JOIN user u
+        SELECT * FROM tb_qiandao s
+        INNER JOIN tb_user u
         ON u.`uid` = s.`uid`
         where s.`uid` = #{uid}
     </select>

@@ -28,6 +28,7 @@ public class GoodsOrderServiceImpl implements GoodsOrderService {
     @Override
     public R createOrder(GoodsOrderDto dto) {
              //    查出库存
+
          // 生成订单
         // 付款 {注明 支付宝 还是微信 }
         //  保存订单

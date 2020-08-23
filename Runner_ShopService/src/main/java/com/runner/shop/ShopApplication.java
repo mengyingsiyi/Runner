@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author: ZackJun
  * @date: 2020/8/19  15:17
  */
+
 @SpringBootApplication
 @EnableTransactionManagement //开启事务
 @EnableDiscoveryClient // 注册与发现服务
