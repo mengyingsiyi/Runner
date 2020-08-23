@@ -1,4 +1,5 @@
 package com.runner.sportsapi.api;
+import com.runner.commons.dto.SportsDto.AddRiding;
 import com.runner.commons.dto.SportsDto.CoursesiDto;
 import com.runner.commons.vo.R;
 import com.runner.entity.pojo.Running;
@@ -47,6 +48,12 @@ public class SportsController {
     @ApiOperation(value = "添加用户跑步里程")
     public R addrunning(@RequestBody Running running, HttpServletRequest request){
         return sportsservice.addrunning(running,request);
+    }
+
+    @PostMapping("addriding.do")
+    @ApiOperation(value = "添加用户骑行里程")
+    public R addriding(@RequestBody AddRiding addRiding, HttpServletRequest request){
+        return sportsservice.addriding(addRiding,request);
     }
 
 }

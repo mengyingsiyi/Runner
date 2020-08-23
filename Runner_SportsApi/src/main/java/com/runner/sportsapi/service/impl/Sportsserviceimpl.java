@@ -2,6 +2,7 @@ package com.runner.sportsapi.service.impl;
 
 
 import com.runner.commons.constant.SystemConstant;
+import com.runner.commons.dto.SportsDto.AddRiding;
 import com.runner.commons.dto.SportsDto.CoursesiDto;
 import com.runner.commons.vo.R;
 import com.runner.entity.pojo.Running;
@@ -62,6 +63,15 @@ public class Sportsserviceimpl implements Sportsservice {
         requestHeaders.set(SystemConstant.TOKEN_HEADER,request.getHeader(SystemConstant.TOKEN_HEADER));
         HttpEntity<Running> requestEntity = new HttpEntity<>(running, requestHeaders);
         return restTemplate.postForObject("http://runnersportservice/sports/addrunning.do", requestEntity, R.class);
+    }
+
+    @Override
+    public R addriding(AddRiding addRiding, HttpServletRequest request) {
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+        requestHeaders.set(SystemConstant.TOKEN_HEADER,request.getHeader(SystemConstant.TOKEN_HEADER));
+        HttpEntity<AddRiding> requestEntity = new HttpEntity<>(addRiding, requestHeaders);
+        return restTemplate.postForObject("http://runnersportservice/sports/addriding.do", requestEntity, R.class);
     }
 
 }

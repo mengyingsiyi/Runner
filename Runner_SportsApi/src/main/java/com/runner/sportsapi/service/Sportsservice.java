@@ -1,5 +1,6 @@
 package com.runner.sportsapi.service;
 
+import com.runner.commons.dto.SportsDto.AddRiding;
 import com.runner.commons.dto.SportsDto.CoursesiDto;
 import com.runner.commons.vo.R;
 import com.runner.entity.pojo.Running;
@@ -14,4 +15,5 @@ public interface Sportsservice {
     R checkc(Uclass uclass, HttpServletRequest request);
     R addaciritys(Uactiriy uactiriy,HttpServletRequest request);
     R addrunning(Running running,HttpServletRequest request);
+    R addriding(AddRiding addRiding,HttpServletRequest request);
 }

@@ -1,5 +1,6 @@
 package com.runner.sportsservice.controller;
 
+import com.runner.commons.dto.SportsDto.AddRiding;
 import com.runner.commons.dto.SportsDto.CoursesiDto;
 import com.runner.commons.vo.R;
 import com.runner.entity.pojo.Running;
@@ -49,6 +50,11 @@ public class SportsController {
     @PostMapping("addrunning.do")
     public R addrunning(@RequestBody Running running, HttpServletRequest request){
         return sportsservice.addrunning(running,request);
+    }
+
+    @PostMapping("addriding.do")
+    public R addriding(@RequestBody AddRiding addRiding,HttpServletRequest request){
+        return sportsservice.addriding(addRiding,request);
     }
 
 }

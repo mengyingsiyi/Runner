@@ -31,10 +31,30 @@
     </insert>
 
     <select id="selectphone" resultType="java.lang.String">
-        SELECT * from r_running where phone = #{phone}
+        SELECT IFNULL((SELECT phone from r_running where phone = #{phone}),0)
     </select>
 
     <update id="uprunning">
-        update r_running set fat = #{fat},outdoor = #{outdoor},treadmill = {treadmill} where phone = #{phone}
+        update r_running set fat = #{fat},outdoor = #{outdoor},treadmill = #{treadmill} where phone = #{phone}
     </update>
+
+    <select id="selectall" resultType="com.runner.entity.pojo.Running">
+        SELECT * from r_running where phone = #{phone}
+    </select>
+
+    <insert id="addriding" parameterType="com.runner.commons.dto.SportsDto.AddRiding">
+        insert into r_riding(phone,ridings) values(#{phone},#{ridings})
+    </insert>
+
+    <select id="selectphone1" resultType="java.lang.String">
+        SELECT IFNULL((SELECT phone from r_riding where phone = #{phone}),0)
+    </select>
+
+    <update id="upriding">
+        update r_riding set ridings = #{ridings} where phone = #{phone}
+    </update>
+
+    <select id="selectridingsall" resultType="java.lang.String">
+        SELECT ridings from r_riding where phone = #{phone}
+    </select>
 </mapper>

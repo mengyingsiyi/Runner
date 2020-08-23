@@ -1,5 +1,6 @@
 package com.runner.sportsservice.dao;
 
+import com.runner.commons.dto.SportsDto.AddRiding;
 import com.runner.commons.dto.SportsDto.UclassDto;
 import com.runner.entity.pojo.Actirity;
 import com.runner.entity.pojo.Running;
@@ -26,8 +27,18 @@ public interface SportsDao {
     //添加跑步记录
     int addrunning(Running running);
     //查询是否有运动记录
-    String selectphone(Running running);
+    String selectphone(String phone);
     //根据手机号添加跑步记录
     int uprunning (Running running);
+
+    Running selectall(Running running);
+    //添加骑行记录
+    int addriding (AddRiding addRiding);
+    //查询是否有运动记录
+    String selectphone1(String phone);
+    //根据手机号添加骑行记录
+    int upriding (AddRiding addRiding);
+
+    String selectridingsall(String ridings);
 
 }

@@ -1,5 +1,6 @@
 package com.runner.sportsservice.service;
 
+import com.runner.commons.dto.SportsDto.AddRiding;
 import com.runner.commons.dto.SportsDto.CoursesiDto;
 import com.runner.commons.vo.R;
 import com.runner.entity.pojo.Running;
@@ -25,4 +26,6 @@ public interface Sportsservice {
     R<String>addaciritys(Uactiriy uactiriy, HttpServletRequest request);
     //添加跑步信息
     R addrunning(Running running,HttpServletRequest request);
+    //添加骑行记录
+    R addriding(AddRiding addRiding, HttpServletRequest request);
 }
