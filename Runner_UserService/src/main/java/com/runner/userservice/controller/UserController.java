@@ -91,4 +91,14 @@ public class UserController {
     public R updatePassword(@RequestBody UpdatePasswordDto passwordDto) {
         return userService.updatePassword(passwordDto);
     }
+
+    /**
+     * 从token中获取user对象
+     * @param token
+     * @return
+     */
+    @GetMapping("/getuserfromtoken")
+    public R getUserFromToken(@RequestParam String token) {
+        return userService.getUserFromToken(token);
+    }
 }

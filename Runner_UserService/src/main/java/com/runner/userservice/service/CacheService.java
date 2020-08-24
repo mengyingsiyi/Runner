@@ -1,9 +1,8 @@
 package com.runner.userservice.service;
 
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.runner.cache.exception.CacheException;
 import com.runner.commons.vo.Result;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @FeignClient("cacheserver")
 public interface CacheService {
-    @PostMapping("/api/cache/getstr.do")
+    @PostMapping(value = "/api/cache/getstr.do")
     String get(@RequestParam String key);
 
     @PostMapping("/api/cache/check.do")
@@ -24,7 +23,7 @@ public interface CacheService {
     @PostMapping("/api/cache/del.do")
     boolean del(@RequestParam String key);
 
-    @PostMapping("/api/cache/savestr.do")
+    @PostMapping(value = "/api/cache/savestr.do",consumes = MediaType.APPLICATION_JSON_VALUE)
     Result set(@RequestParam String key, @RequestParam long times, @RequestParam String value);
 
 }
