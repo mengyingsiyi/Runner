@@ -7,19 +7,24 @@
         <result column="u_nickname" property="nickname"></result>
         <result column="u_head" property="head"></result>
         <result column="look_count" property="lookcount"></result>
+        <result column="f_count" property="fabulousCount"></result>
         <collection property="picurl" ofType="com.runner.commons.dto.homedto.HomePicDto">
             <result column="pic_url" property="picurl"></result>
         </collection>
     </resultMap>
     <insert id="save" useGeneratedKeys="true" keyProperty="dto.tid">
-        INSERT INTO t_talk(talk_user_id,talk_ctime,talk_type,talk_content,talk_topic_id)
-        VALUES(#{uid},now(),#{dto.talkType},#{dto.talkContent},#{dto.talkTopicId})
+        INSERT INTO t_talk(talk_user_id,talk_ctime,talk_type,talk_content,talk_topic_id,look_count,f_count,comment_count,collection_count)
+        VALUES(#{uid},now(),#{dto.talkType},#{dto.talkContent},#{dto.talkTopicId},0,0,0,0)
     </insert>
     <select id="findHomeTalk" resultMap="findTalk">
-        SELECT t.`talk_id` ,u.`u_nickname` ,u.`u_head` ,t.`talk_content` ,t.`look_count` ,p.`pic_url`  FROM t_talk t
+        SELECT t.`f_count`,t.`talk_id` ,u.`u_nickname` ,u.`u_head` ,t.`talk_content` ,t.`look_count` ,p.`pic_url`  FROM t_talk t
         INNER JOIN t_picture p
         ON p.`pic_talk_id` = t.`talk_id`
         INNER JOIN tb_user u
         ON t.`talk_user_id` = u.`u_id`
     </select>
+    <update id="updateFCount" >
+        update t_talk set f_count = f_count+#{num}
+        where talk_id = #{talkId}
+    </update>
 </mapper>
