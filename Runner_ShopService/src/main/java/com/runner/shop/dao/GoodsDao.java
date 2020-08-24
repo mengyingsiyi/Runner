@@ -11,7 +11,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface GoodsDao {
+
     GoodsDto  selectById(Integer id);
-    @Select("")
+        // 通过 商品id查询到  库存
     Integer selectInventory(Integer shopId);
+        // 修改 库存
+    int updateInv(Integer num ,  Integer shopId);
 }

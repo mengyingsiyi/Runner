@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class GoodsOrderDto {
-    private Integer orderId;
+
     private Integer shopId;
     private  Integer num;
     private String add;
