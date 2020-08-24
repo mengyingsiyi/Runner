@@ -29,6 +29,7 @@ public class ReplyServiceImpl implements ReplyService {
             String userStr = cacheService.get(SystemConstant.USER_TOKEN + token);
             if (StringUtil.checkStr(userStr)){
                 User user = JSON.parseObject(userStr, User.class);
+                dto.setUserName(user.getUNickname());
                 if (dao.save(dto,user.getUId()) > 0){
                     return R.ok("回复成功");
                 }

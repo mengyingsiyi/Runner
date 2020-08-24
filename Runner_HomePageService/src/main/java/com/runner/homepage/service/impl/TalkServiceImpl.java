@@ -10,6 +10,7 @@ import com.runner.commons.util.StringUtil;
 import com.runner.commons.vo.R;
 import com.runner.entity.pojo.User;
 import com.runner.entity.pojo.Video;
+import com.runner.homepage.dao.FabulousDao;
 import com.runner.homepage.dao.PicDao;
 import com.runner.homepage.dao.TalkDao;
 import com.runner.homepage.dao.VideoDao;
@@ -43,6 +44,9 @@ public class TalkServiceImpl implements TalkService {
 
     @Autowired
     private CacheService cacheService;
+
+    @Autowired
+    private FabulousDao fabulousDao;
 
     /**
      * 发布动态接口

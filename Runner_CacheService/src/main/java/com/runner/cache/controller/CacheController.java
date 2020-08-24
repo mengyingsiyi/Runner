@@ -49,4 +49,11 @@ public class CacheController {
     public boolean del(@RequestParam String key) throws CacheException {
         return service.del(key);
     }
+
+    @PostMapping("/set.do")
+    public Result set(@RequestParam String key,  @RequestParam String value) throws CacheException {
+        System.out.println("存了");
+        service.set(key,value);
+        return Result.ok();
+    }
 }

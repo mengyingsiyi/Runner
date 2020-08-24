@@ -13,4 +13,6 @@ public class ReplyDto {
     private Integer touid;
     private Integer commentId;
     private String replyContent;
+    private String toUserName;
+    private String userName;
 }

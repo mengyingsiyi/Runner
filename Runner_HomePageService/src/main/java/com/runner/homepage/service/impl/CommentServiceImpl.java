@@ -29,6 +29,7 @@ public class CommentServiceImpl implements CommentService {
             String userStr = cacheService.get(SystemConstant.USER_TOKEN + token);
             if (StringUtil.checkStr(userStr)){
                 User user = JSON.parseObject(userStr, User.class);
+                dto.setCommentUserName(user.getUNickname());
                 if (dao.save(dto,user.getUId()) > 0){
                     return R.ok("评论成功");
                 }

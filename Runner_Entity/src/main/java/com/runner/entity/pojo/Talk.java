@@ -16,4 +16,12 @@ public class Talk {
     private Integer talkTopicId;
 
     private String talkContent;
+
+    private int lookCount;
+
+    private int fcount;
+
+    private int collectionCount;
+
+    private int commentCount;
 }

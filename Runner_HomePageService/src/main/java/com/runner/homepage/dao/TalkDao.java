@@ -17,4 +17,5 @@ public interface TalkDao {
 
     List<HomeTalkDto> findHomeTalk();
 
+    int updateFCount(@Param("talkId") int talkId, @Param("num") int num);
 }
