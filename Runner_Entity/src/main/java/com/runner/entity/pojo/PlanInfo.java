@@ -4,17 +4,18 @@ import lombok.Data;
 @Data
 public class PlanInfo {
 
-  private long planInfoId;
+  private Integer planInfoId;
   private String planName;
-  private long planLevel;
-  private long fitnessGoals;
-  private long choiceRun;
-  private long choiceInstrument;
+  private Integer planLevel;
+  private Integer fitnessGoals;
+  private Integer choiceRun;
+  private Integer choiceInstrument;
   private double inputHeight;
   private double inputWeight;
   private double weightGoals;
-  private long weekExerciseDays;
-  private long dayExerciseMinute;
-  private long planTime;
-  private long userId;
+  private Integer weekExerciseDays;
+  private Integer dayExerciseMinute;
+  private Integer planTime;
+  private Integer userId;
+  private Integer planId;
 }

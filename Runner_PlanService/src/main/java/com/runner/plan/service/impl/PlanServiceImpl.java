@@ -3,23 +3,22 @@ package com.runner.plan.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.runner.commons.constant.SystemConstant;
 import com.runner.commons.dto.GainMuscleDto;
+import com.runner.commons.dto.PlanDto;
 import com.runner.commons.dto.PlanInfoDto;
 import com.runner.commons.util.BeanUtilCopy;
 import com.runner.commons.util.StringUtil;
 import com.runner.commons.vo.R;
-import com.runner.entity.pojo.GainMuscle;
-import com.runner.entity.pojo.PlanInfo;
-import com.runner.entity.pojo.PlanInstrument;
-import com.runner.entity.pojo.User;
+import com.runner.entity.pojo.*;
 import com.runner.plan.dao.GainMuscleDao;
 import com.runner.plan.dao.PlanDao;
 import com.runner.plan.dao.PlanInstrumentDao;
 import com.runner.plan.service.CacheService;
 import com.runner.plan.service.PlanService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 /**
  * @program: runner
@@ -50,27 +49,29 @@ public class PlanServiceImpl implements PlanService {
         System.err.println(user);
         if (user!=null && !"".equals(user)){
             Integer uId = user.getUId();
-            PlanInfo planInfo = new PlanInfo();
-            BeanUtils.copyProperties(planInfoDto, planInfo);
+            PlanInfo planInfo=BeanUtilCopy.copyDto(PlanInfo.class,planInfoDto );
             planInfo.setUserId(uId);
             System.err.println(planInfo);
-            if (planDao.findPlanById(uId) > 0) {
+            Integer planId = planInfoDto.getPlanId();
+            if (planDao.findPlanById(uId,planId) > 0) {
+
                 //进行修改操作
                 int updatePlanResult = planDao.updatePlan(planInfo);
                 if (planInfo.getChoiceInstrument() == 1) {
                     //修改运动机械
                     PlanInstrument planInstrument = new PlanInstrument();
                     planInstrument.setInstrumentName(planInfoDto.getInstrumentName());
-                    planInstrument.setPlanInfoId(planInfoDto.getPlanInfoId());
+                    planInstrument.setPlanInfoId(planDao.findPlanInfo(planId,uId).getPlanInfoId());
                     int UpdateInstrumentResult = instrumentDao.updateInstrumentById(planInstrument);
                 }
+
                 if (planInfo.getFitnessGoals() == 2) {
                     //增肌计划
                     GainMuscle gainMuscle = new GainMuscle();
                     gainMuscle.setGainMusclePart(planInfoDto.getGainMusclePart());
                     gainMuscle.setPartStatus(planInfoDto.getPartStatus());
                     gainMuscle.setImproveStatus(planInfoDto.getImproveStatus());
-                    gainMuscle.setPlanInfoId(planInfoDto.getPlanInfoId());
+                    gainMuscle.setPlanInfoId(planDao.findPlanInfo(planId,uId).getPlanInfoId());
                     //修改增肌目标
                     int updateMuscleResult = muscleDao.updateGainMuscleById(gainMuscle);
                 }
@@ -83,20 +84,22 @@ public class PlanServiceImpl implements PlanService {
             } else {
                 //新增计划
                 int addPlanResult = planDao.addPlan(planInfo);
-                if(planInfo.getChoiceInstrument() == 1){
-                    //运动计划中添加运动器械
-                    PlanInstrument planInstrument = new PlanInstrument();
-                    planInstrument.setInstrumentName(planInfoDto.getInstrumentName());
-                    planInstrument.setPlanInfoId(planInfoDto.getPlanInfoId());
-                    instrumentDao.saveInstrument(planInstrument);
-                }
+                System.err.println("planInfo主键回填"+planInfo.getPlanInfoId());
+
                 if (planInfo.getFitnessGoals() == 2){
+                    if(planInfo.getChoiceInstrument() == 1){
+                        //运动计划中添加运动器械
+                        PlanInstrument planInstrument = new PlanInstrument();
+                        planInstrument.setInstrumentName(planInfoDto.getInstrumentName());
+                        planInstrument.setPlanInfoId(planInfo.getPlanInfoId());
+                        instrumentDao.saveInstrument(planInstrument);
+                    }
                     //新增增肌部位
                     GainMuscle gainMuscle = new GainMuscle();
                     gainMuscle.setGainMusclePart(planInfoDto.getGainMusclePart());
                     gainMuscle.setPartStatus(planInfoDto.getPartStatus());
                     gainMuscle.setImproveStatus(planInfoDto.getImproveStatus());
-                    gainMuscle.setPlanInfoId(planInfoDto.getPlanInfoId());
+                    gainMuscle.setPlanInfoId(planInfo.getPlanInfoId());
 
                 }
                 if (addPlanResult > 0) {
@@ -111,26 +114,48 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
-    public R findPlanById(Integer planInfoId, String token) {
+    public R findPlanById(Integer planId, String token) {
+        System.err.println(token);
         User user = JSON.parseObject(StringUtil.jsonHandle(cacheService.get(SystemConstant.USER_TOKEN+token)), User.class);
+        System.err.println(user);
 //        获取用户id
-        if (planInfoId!=null && planInfoId!=0){
-            PlanInfo planInfo = planDao.findPlanInfo(planInfoId, user.getUId());
-            PlanInfoDto planInfoDto = BeanUtilCopy.copy(PlanInfoDto.class, planInfo);
-            if (planInfo.getFitnessGoals()==2){
+        if (planId!=null && planId!=0){
+            System.err.println(planId+"=======>"+user.getUId());
+            PlanInfo planInfo = planDao.findPlanInfo(planId, user.getUId());
+            System.err.println(planInfo);
+            PlanInfoDto planInfoDto = BeanUtilCopy.copyDto(PlanInfoDto.class, planInfo);
+//            PlanInfoDto planInfoDto = new PlanInfoDto();
+//            planInfoDto.setPlanName(planInfo.getPlanName());
+//            planInfoDto.setPlanLevel(planInfo.getPlanLevel());
+//            planInfoDto.setChoiceRun(planInfo.getChoiceRun());
+//            planInfoDto.setWeightGoals(planInfo.getWeightGoals());
+//            planInfoDto.setInputHeight(planInfo.getInputHeight());
+//            planInfoDto.setInputWeight(planInfo.getInputHeight());
+//            planInfoDto.setDayExerciseMinute(planInfo.getDayExerciseMinute());
+//            planInfoDto.setWeekExerciseDays(planInfo.getWeekExerciseDays());
+//            planInfoDto.setPlanTime(planInfo.getPlanTime());
+            planInfoDto.setChoiceInstrument(planInfo.getChoiceInstrument());
+            planInfoDto.setFitnessGoals(planInfo.getFitnessGoals());
+            System.err.println(planInfoDto);
+            if (planInfo.getFitnessGoals() !=null &&  planInfo.getFitnessGoals()==2){
+                if (planInfo.getChoiceInstrument()==1){
+                    //根据planInfoId查询对应的运动器械
+                    PlanInstrument instrument = instrumentDao.findInstrumentById(planInfo.getPlanInfoId());
+                    System.err.println(instrument);
+                    planInfoDto.setInstrumentName(instrument.getInstrumentName());
+                }else{
+                    planInfoDto.setChoiceInstrument(planInfo.getChoiceInstrument());
+                }
                     //根据planInfoId查询增肌内容
-                GainMuscleDto gainMuscle = muscleDao.getGainMuscle(planInfoId);
+                GainMuscleDto gainMuscle = muscleDao.getGainMuscle(planInfo.getPlanInfoId());
+                System.err.println(gainMuscle);
                 planInfoDto.setGainMusclePart(gainMuscle.getGainMusclePart());
                 planInfoDto.setPartStatus(gainMuscle.getPartStatus());
                 planInfoDto.setImproveStatus(gainMuscle.getImproveStatus());
 //                PlanInfoDto planInfoDto1 = BeanUtilCopy.copy(planInfoDto.getClass(), gainMuscle);
+            }else{
+                planInfoDto.setFitnessGoals(planInfo.getFitnessGoals());
             }
-            if (planInfo.getChoiceInstrument()==1){
-                //根据planInfoId查询对应的运动器械
-                PlanInstrument instrument = instrumentDao.findInstrumentById(planInfoId);
-                planInfoDto.setInstrumentName(instrument.getInstrumentName());
-            }
-
             if (planInfoDto!=null){
                 return R.ok("ok",planInfoDto);
             }else {
@@ -138,5 +163,29 @@ public class PlanServiceImpl implements PlanService {
             }
         }
         return R.fail("亲，你还未制定任何计划,赶紧制定一个吧");
+    }
+
+    @Override
+    public R showPlanHome(Integer planId, String token) {
+        User user = JSON.parseObject(StringUtil.jsonHandle(cacheService.get(SystemConstant.USER_TOKEN+token)), User.class);
+        if (user!=null){
+            PlanDto planDto = planDao.findPlanDto(user.getUId(), planId);
+            return R.ok("ok",planDto);
+        }else {
+            return R.fail("亲你还未制定任何计划赶快制定计划吧");
+        }
+
+    }
+
+    @Override
+    public R showAllPlan(String token) {
+        User user = JSON.parseObject(StringUtil.jsonHandle(cacheService.get(SystemConstant.USER_TOKEN+token)), User.class);
+        if (user != null){
+            List<Plan> planList = planDao.findAllPlan(user.getUId());
+            return R.ok("全部计划",planList);
+        }else {
+            return R.fail("登录失效");
+        }
+
     }
 }
