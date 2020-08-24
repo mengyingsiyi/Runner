@@ -6,11 +6,55 @@
         select * from r_actirity where id=#{id}
     </select>
 
-    <select id="selectcourses" resultType="java.lang.String">
-        select u_course from tb_user where u_tel= #{phone}
+    <select id="selectcourses" resultType="com.runner.commons.dto.SportsDto.UclassDto">
+        select c_id from r_uclass where u_id= #{uid}
     </select>
 
-    <update id="addcourses">
-        update tb_user set u_course = #{course} where u_tel = #{phone}
+    <select id="seleonec" resultType="java.lang.String">
+        SELECT IFNULL((select c_id from r_uclass where c_id= #{cid} and u_id = #{uid}),0)
+    </select>
+
+    <select id="seleonea" resultType="java.lang.String">
+        SELECT IFNULL((select a_id from r_uactirity where a_id= #{aid} and u_id = #{uid}),0)
+    </select>
+
+    <insert id="addaciritys" parameterType="com.runner.entity.pojo.Uactiriy">
+        insert into r_uactirity(u_id,a_id) values(#{uid},#{aid})
+    </insert>
+
+    <insert id="addcourses" parameterType="com.runner.entity.pojo.Uclass">
+        insert into r_uclass(u_id,c_id) values(#{uid},#{cid})
+    </insert>
+
+    <insert id="addrunning" parameterType="com.runner.entity.pojo.Running">
+        insert into r_running(phone,fat,outdoor,treadmill) values(#{phone},#{fat},#{outdoor},#{treadmill})
+    </insert>
+
+    <select id="selectphone" resultType="java.lang.String">
+        SELECT IFNULL((SELECT phone from r_running where phone = #{phone}),0)
+    </select>
+
+    <update id="uprunning">
+        update r_running set fat = #{fat},outdoor = #{outdoor},treadmill = #{treadmill} where phone = #{phone}
     </update>
+
+    <select id="selectall" resultType="com.runner.entity.pojo.Running">
+        SELECT * from r_running where phone = #{phone}
+    </select>
+
+    <insert id="addriding" parameterType="com.runner.commons.dto.SportsDto.AddRiding">
+        insert into r_riding(phone,ridings) values(#{phone},#{ridings})
+    </insert>
+
+    <select id="selectphone1" resultType="java.lang.String">
+        SELECT IFNULL((SELECT phone from r_riding where phone = #{phone}),0)
+    </select>
+
+    <update id="upriding">
+        update r_riding set ridings = #{ridings} where phone = #{phone}
+    </update>
+
+    <select id="selectridingsall" resultType="java.lang.String">
+        SELECT ridings from r_riding where phone = #{phone}
+    </select>
 </mapper>

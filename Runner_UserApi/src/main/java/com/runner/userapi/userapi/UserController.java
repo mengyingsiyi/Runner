@@ -3,6 +3,7 @@ package com.runner.userapi.userapi;
 import com.runner.commons.dto.UserCodeLoginDto;
 import com.runner.commons.dto.UserLoginDto;
 import com.runner.commons.dto.UserRegisterDto;
+import com.runner.commons.dto.userDto.UpdatePasswordDto;
 import com.runner.commons.vo.R;
 import com.runner.userapi.service.UserService;
 import io.swagger.annotations.Api;
@@ -56,5 +57,18 @@ public class UserController {
     public R madeCode(@RequestParam String tel) {
         System.out.println(tel);
         return userService.madeCode(tel);
+    }
+
+    @ApiOperation("退出登录")
+    @PostMapping("/logout")
+    public R logout(@RequestParam String token) {
+        //System.out.println(token);
+        return userService.logout(token);
+    }
+
+    @ApiOperation("找回密码")
+    @PostMapping("/updatePassword")
+    public R updatePassword(@RequestBody UpdatePasswordDto passwordDto) {
+        return userService.updatePassword(passwordDto);
     }
 }

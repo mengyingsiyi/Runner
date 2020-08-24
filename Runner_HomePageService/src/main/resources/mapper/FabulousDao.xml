@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.runner.homepage.dao.FabulousDao">
+    <insert id="save">
+        INSERT INTO t_fabulous(fabulous_user_id,fabulous_talk_id,fabulous_ctime,fabulous_article_id)
+        VALUES(#{uid},#{dto.talkId},NOW(),#{dto.type});
+    </insert>
+    <delete id="del">
+        delete from t_fabulous where fabulous_user_id = #{uid} and fabulous_talk_id=#{talkId}
+    </delete>
+    <select id="selectCount" resultType="_int">
+        SELECT COUNT(fabulous_talk_id) COUNT FROM t_fabulous
+        WHERE fabulous_talk_id = #{talkId}
+    </select>
+</mapper>

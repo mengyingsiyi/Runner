@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class Courses {
 
   private int id;
+  private String phone;
   private String title;
   private String introduce;
   private String video;

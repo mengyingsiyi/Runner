@@ -1,8 +1,14 @@
 package com.runner.sportsservice.service;
 
-import com.runner.commons.dto.SportsDto.checkcoureseDto;
-import com.runner.commons.dto.SportsDto.coursesDto;
+import com.runner.commons.dto.SportsDto.AddRiding;
+import com.runner.commons.dto.SportsDto.CoursesiDto;
 import com.runner.commons.vo.R;
+import com.runner.entity.pojo.Running;
+import com.runner.entity.pojo.Uactiriy;
+import com.runner.entity.pojo.Uclass;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @Description:
@@ -10,7 +16,16 @@ import com.runner.commons.vo.R;
  * @date: 2020/8/19  14:46
  */
 public interface Sportsservice {
+    //查询所有活动
     R<String> actiritys(String id);
-    R<String> addcourses(String id);
-    R<String> checkcourses(String phone);
+    //添加用户课程
+    R<String>addcourses(Uclass uclass, HttpServletRequest request);
+    //查询用户参与的课程
+    R<List>checkcourses(Uclass uclass, HttpServletRequest request);
+    //添加用户参与的活动
+    R<String>addaciritys(Uactiriy uactiriy, HttpServletRequest request);
+    //添加跑步信息
+    R addrunning(Running running,HttpServletRequest request);
+    //添加骑行记录
+    R addriding(AddRiding addRiding, HttpServletRequest request);
 }

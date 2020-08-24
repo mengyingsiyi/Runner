@@ -4,6 +4,7 @@ import com.runner.cache.exception.CacheException;
 import com.runner.commons.dto.UserCodeLoginDto;
 import com.runner.commons.dto.UserLoginDto;
 import com.runner.commons.dto.UserRegisterDto;
+import com.runner.commons.dto.userDto.UpdatePasswordDto;
 import com.runner.commons.vo.R;
 
 /**
@@ -21,4 +22,8 @@ public interface UserService {
     R loginCode(UserCodeLoginDto codeLoginDto);
 
     R madeCode(String tel);
+
+    R logout(String token);
+
+    R updatePassword(UpdatePasswordDto passwordDto);
 }

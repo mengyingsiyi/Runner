@@ -2,10 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
     <mapper namespace="com.runner.plan.dao.PlanDao">
         <insert id="addPlan">
-            insert into (plan_name,plan_level,fitness_goals,choice_run,choice_instrument,
+            insert into plan_info(plan_name,plan_level,fitness_goals,choice_run,choice_instrument,
                 input_height,input_weight,weight_goals,week_exercise_days,day_exercise_minute,plan_time,user_id)
                     values (#{planName},#{planLevel},#{fitnessGoals},#{choiceRun},#{choiceInstrument},
                     #{inputHeight},#{inputWeight},#{weightGoals},#{weekExerciseDays},#{dayExerciseMinute},
                     #{planTime},#{userId})
         </insert>
+
+        <update id="updatePlan">
+            update plan_info
+            <set>
+                <if test="planName != null">plan_name=#{planName},</if>
+                <if test="fitnessGoals != null">fitness_goals=#{fitnessGoals},</if>
+                <if test="choice_run != null">choice_run=#{choiceRun},</if>
+                <if test="choice_instrument != null">choice_instrument=#{choiceInstrument},</if>
+                <if test="input_height != null">input_height=#{inputHeight},</if>
+                <if test="input_weight != null">input_weight=#{inputWeight},</if>
+                <if test="weight_goals != null">weight_goals=#{weightGoals},</if>
+                <if test="week_exercise_days != null">week_exercise_days=#{weekExerciseDays},</if>
+                <if test="day_exercise_minute != null">day_exercise_minute=#{dayExerciseMinute},</if>
+                <if test="plan_time != null">plan_time=#{planTime},</if>
+            </set>
+            where user_id = #{userId} and plan_info_id = #{planInfoId}
+        </update>
+
+        <select id="findPlanById" resultType="int">
+            select count(*) from plan_info where user_id = #{userId}
+        </select>
+
+        <select id="findPlanInfo" resultType="com.runner.entity.pojo.PlanInfo">
+            select plan_name,plan_level,fitness_goals,choice_run,choice_instrument
+                ,input_height,input_weight,weight_goals,week_exercise_days,
+                day_exercise_minute,plan_time from plan_info where plan_info_id=#{planInfoId}
+                and user_id=#{userId}
+        </select>
     </mapper>

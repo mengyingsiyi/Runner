@@ -9,7 +9,7 @@ spring:
         server-addr: 39.99.161.137:8848  #注册中心地址
   datasource:
     derver: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://39.99.161.137:3306/db_orderapi?serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/db_runner?serverTimezone=Asia/Shanghai
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource

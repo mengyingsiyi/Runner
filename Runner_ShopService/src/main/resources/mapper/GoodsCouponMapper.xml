@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.runner.shop.dao.GoodsCouponDao">
+     <resultMap id="ccC" type="com.runner.commons.dto.ShopDto.GoodsCouponDto">
+         <result column="coupon_max" property="couponMax"></result>
+          <result column="coupon_par" property="couponPar"></result>
+     </resultMap>
+   <select id="selectCouponById" resultMap="ccC">
+
+SELECT* FROM tb_shop_coupon sc WHERE  sc.shop_id=#{id}
+   </select>
+</mapper>

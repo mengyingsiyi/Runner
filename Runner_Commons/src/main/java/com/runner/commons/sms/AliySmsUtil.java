@@ -5,6 +5,7 @@ import com.aliyuncs.CommonResponse;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.exceptions.ClientException;
+import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import lombok.extern.slf4j.Slf4j;
@@ -17,17 +18,21 @@ import lombok.extern.slf4j.Slf4j;
  **/
 @Slf4j
 public class AliySmsUtil {
-    private static String key="LTAI4FyPHKcD5hRqJpEGBxMa";
-    private static String keysecret="uKVVpnqo8X4Gf4PpdZ581cOIOJ64PQ";
+    private static String key = "LTAI4FyPHKcD5hRqJpEGBxMa";
+    private static String keysecret = "uKVVpnqo8X4Gf4PpdZ581cOIOJ64PQ";
+
 
     /**
      * 发送验证码
      * @param phone 手机号
-     * @param code 验证码*/
+     * @param code   验证码
+     */
     public static boolean sendSmsCode(String phone,int code){
+        System.err.println(phone+"---"+code);
         DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou",
                 key, keysecret);
         IAcsClient client = new DefaultAcsClient(profile);
+
         CommonRequest request = new CommonRequest();
         request.setSysMethod(MethodType.POST);
         request.setSysDomain("dysmsapi.aliyuncs.com");
@@ -36,12 +41,15 @@ public class AliySmsUtil {
         request.putQueryParameter("RegionId", "cn-hangzhou");
         request.putQueryParameter("PhoneNumbers", phone);
         request.putQueryParameter("SignName", "Runner");
-        request.putQueryParameter("TemplateCode", "SMS_199175298");
+        request.putQueryParameter("TemplateCode", "SMS_111111");
         request.putQueryParameter("TemplateParam", "{\"code\":"+code+"}");
         try {
             CommonResponse response = client.getCommonResponse(request);
             log.info(response.getData());
             return true;
+        } catch (ServerException e) {
+            e.printStackTrace();
+            return false;
         } catch (ClientException e) {
             e.printStackTrace();
             return false;
@@ -65,7 +73,7 @@ public class AliySmsUtil {
         request.putQueryParameter("RegionId", "cn-hangzhou");
         request.putQueryParameter("PhoneNumbers", phone);
         request.putQueryParameter("SignName", "来自Runner的短信");
-        request.putQueryParameter("TemplateCode", "SMS_177258097");
+        request.putQueryParameter("TemplateCode", "SMS_1111111");
         request.putQueryParameter("TemplateParam", "{\"code\":"+code+"}");
         try {
             CommonResponse response = client.getCommonResponse(request);
