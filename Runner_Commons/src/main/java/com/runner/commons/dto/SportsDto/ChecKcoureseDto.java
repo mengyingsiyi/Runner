@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class checkcoureseDto {
+public class ChecKcoureseDto {
     private int id;
     private String title;
     private String introduce;
