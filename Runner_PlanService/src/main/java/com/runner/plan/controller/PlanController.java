@@ -28,12 +28,12 @@ public class PlanController {
         return planService.findPlanById(planId,token);
     }
 
-    @GetMapping("showplanhome")
+    @GetMapping("showplanhome.do")
     public R showPlanHome(@RequestParam Integer planId,@RequestParam String token){
         return planService.showPlanHome(planId,token);
     }
 
-    @GetMapping("showallplan")
+    @GetMapping("showallplan.do")
     public R showAllPlan(@RequestParam String token){
         return planService.showAllPlan(token);
     }
