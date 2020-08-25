@@ -6,6 +6,7 @@ import com.runner.commons.dto.PicDto;
 import com.runner.commons.dto.TalkDto;
 import com.runner.commons.dto.VideoDto;
 import com.runner.commons.dto.homedto.HomeTalkDto;
+import com.runner.commons.dto.homedto.TalkDetailDto;
 import com.runner.commons.util.StringUtil;
 import com.runner.commons.vo.R;
 import com.runner.entity.pojo.User;
@@ -17,6 +18,7 @@ import com.runner.homepage.dao.VideoDao;
 import com.runner.homepage.service.CacheService;
 import com.runner.homepage.service.OssService;
 import com.runner.homepage.service.TalkService;
+import com.runner.homepage.util.CacheUserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,12 +48,16 @@ public class TalkServiceImpl implements TalkService {
     private CacheService cacheService;
 
     @Autowired
+    private CacheUserUtil cacheUserUtil;
+
+    @Autowired
     private FabulousDao fabulousDao;
 
     /**
      * 发布动态接口
+     *
      * @param dto
-     * @param file 上传的文件
+     * @param file  上传的文件
      * @param token 用户令牌
      * @return
      */
@@ -59,11 +65,10 @@ public class TalkServiceImpl implements TalkService {
     public R save(TalkDto dto, MultipartFile file, String token) {
         if (StringUtil.checkStr(token)) {
             if (dto != null) {
-                if (cacheService.check(SystemConstant.USER_TOKEN+token)) {
-                    String userStr = cacheService.get(SystemConstant.USER_TOKEN+token);
-                    User user = JSON.parseObject(userStr, User.class);
+                if (cacheService.check(SystemConstant.USER_TOKEN + token)) {
+                    User user = cacheUserUtil.getUser(token);
                     if (null != user) {
-                        if (dao.save(dto,user.getUId()) > 0) {
+                        if (dao.save(dto, user.getUId()) > 0) {
                             if (!file.isEmpty()) {
                                 switch (dto.getTalkType()) {
                                     case 1:
@@ -79,7 +84,7 @@ public class TalkServiceImpl implements TalkService {
                                     case 2:
                                         R<VideoDto> r2 = ossService.uploadImg(file);
                                         if (r2.getCode() == 10000) {
-                                            //存入图片
+                                            //存入视频
                                             VideoDto videoDto = r2.getData();
                                             videoDto.setTalkId(dto.getTid());
                                             videoDao.save(videoDto);
@@ -102,14 +107,25 @@ public class TalkServiceImpl implements TalkService {
 
     /**
      * 推荐动态列表
+     *
      * @return
      */
     @Override
     public R findTalk() {
         List<HomeTalkDto> homeTalk = dao.findHomeTalk();
-        if (homeTalk != null && homeTalk.size() > 0){
+        if (homeTalk != null && homeTalk.size() > 0) {
             return R.ok(homeTalk);
         }
         return R.fail("还没有找到动态哟");
+    }
+
+    @Override
+    public R findTalkDetail(int talkId) {
+        //分布查询动态的详情
+        //1.连接用户、动态、图片查出一条动态的对象
+        //2.连接评论和回复查询出评论回复的集合
+        //3.组装成一个完成的动态详情对象返回前端
+        TalkDetailDto detail = dao.findDetail(talkId);
+        return R.ok();
     }
 }

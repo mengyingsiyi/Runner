@@ -13,4 +13,5 @@ import org.springframework.web.multipart.MultipartFile;
 public interface TalkService {
     R save(TalkDto dto,MultipartFile file,String token);
     R findTalk();
+    R findTalkDetail(int talkId);
 }

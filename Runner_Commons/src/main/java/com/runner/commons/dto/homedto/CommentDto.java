@@ -2,6 +2,8 @@ package com.runner.commons.dto.homedto;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @Description:
  * @author: 王永
@@ -9,7 +11,7 @@ import lombok.Data;
  */
 @Data
 public class CommentDto {
-    private String commentUserName;
     private Integer talkId;
     private String content;
+
 }

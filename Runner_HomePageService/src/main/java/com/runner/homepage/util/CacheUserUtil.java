@@ -20,8 +20,9 @@ public class CacheUserUtil {
     public User getUser(String token){
         if (cacheService.check(SystemConstant.USER_TOKEN+token)){
             String userStr = cacheService.get(SystemConstant.USER_TOKEN+token);
-            if (StringUtil.checkStr(userStr)){
-                return JSON.parseObject(userStr,User.class);
+            String s = StringUtil.jsonHandle(userStr);
+            if (StringUtil.checkStr(s)){
+                return JSON.parseObject(s,User.class);
             }
             return null;
         }

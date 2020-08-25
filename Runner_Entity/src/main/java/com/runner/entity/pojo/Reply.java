@@ -23,4 +23,7 @@ public class Reply {
 
     private String toUserName;
 
+    private int replyToUserId;
+
+    private String toUserHead;
 }

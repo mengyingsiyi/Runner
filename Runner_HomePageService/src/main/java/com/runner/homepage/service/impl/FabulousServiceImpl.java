@@ -37,6 +37,7 @@ public class FabulousServiceImpl implements FabulousService {
     public R save(FabulousDto dto, String token) {
         User user = cacheUserUtil.getUser(token);
         if (null != user) {
+            //点赞成功修改动态表点赞数量
             if (talkDao.updateFCount(dto.getTalkId(),1) > 0) {
                 if (dao.save(user.getUId(), dto) > 0) {
                     return R.ok("点赞成功");
@@ -57,4 +58,5 @@ public class FabulousServiceImpl implements FabulousService {
         }
         return R.fail("取消点赞失败");
     }
+
 }

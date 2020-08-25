@@ -27,4 +27,9 @@ public class TalkController {
     public R findHomeTalk(){
         return service.findTalk();
     }
+
+    @GetMapping("/findTalkDetail.do")
+    public R findTalkDetail(@RequestParam int talkId) {
+        return service.findTalkDetail(talkId);
+    }
 }

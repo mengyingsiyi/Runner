@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class User {
     private Integer uId;
-    private String uNickname;
+    private String uNickname;//狗鹏
     private String uTel;
     private String uPassword;
     private String uHead;
