@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.runner.shop.dao.CommentDao">
+
+         <insert id="save" keyProperty="comId" useGeneratedKeys="true">
+              INSERT INTO tb_comment(com_img_url,com_video_url,com_orderid,com_desc,ctime)
+              VALUES(#{comImgUrl},#{comVideoUrl},#{comOrderId},#{comDesc},NOW())
+         </insert>
+
+</mapper>

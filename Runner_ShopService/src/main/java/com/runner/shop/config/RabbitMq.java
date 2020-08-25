@@ -23,6 +23,7 @@ public class RabbitMq {
 
     private String luyoupipei="open:rout:timeoutorder"; //进行 路由匹配 因为不仅有订单 还有其他的
 
+       private static final String  DUILIE="open:putong";
             // 创建延迟  ，并设置有效期
       @Bean
     public Queue  getSiXin(){
@@ -51,6 +52,11 @@ public class RabbitMq {
         public Binding   ing(DirectExchange directExchange){
 
             return BindingBuilder.bind(getQ()).to(directExchange).with(luyoupipei);
+        }
+            //  创建 队列 去执行 修改
+        @Bean
+    public Queue createQ1(){
+          return new Queue(DUILIE);
         }
 
 }

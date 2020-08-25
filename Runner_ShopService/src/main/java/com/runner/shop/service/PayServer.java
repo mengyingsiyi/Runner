@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  */
 @FeignClient(name = "orderserver")
 public interface PayServer {
-    @GetMapping("querypay/{oid}")
+    @GetMapping("/api/pay/querypay/{oid}")
      R queryPay(@PathVariable String oid);
 
 

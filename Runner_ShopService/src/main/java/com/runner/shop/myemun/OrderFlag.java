@@ -6,7 +6,7 @@ package com.runner.shop.myemun;
  * @date: 2020/8/24  20:58
  */
 public enum OrderFlag {
-     待支付(1) , 待发货(2) , 超时订单(3);
+     待支付(1) , 待发货(2) , 超时订单(3), 订单完成(4);
     private int val;
 
     public int getVal() {

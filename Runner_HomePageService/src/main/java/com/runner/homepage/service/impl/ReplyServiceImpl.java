@@ -34,7 +34,7 @@ public class ReplyServiceImpl implements ReplyService {
     public R save(ReplyDto dto, String token) {
         User user = cacheUserUtil.getUser(token);
         if (null != user) {
-            Reply reply = BeanUtilCopy.copy(Reply.class, dto);
+            Reply reply = BeanUtilCopy.copyDto(Reply.class, dto);
             reply.setReplyUserId(user.getUId());
             reply.setUsername(user.getUNickname());
             String toUserName = userDao.findName(dto.getReplyToUserId());
