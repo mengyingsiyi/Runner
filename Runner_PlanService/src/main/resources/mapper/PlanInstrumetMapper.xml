@@ -14,6 +14,6 @@
         </insert>
 
         <select id="findInstrumentById" resultType="com.runner.entity.pojo.PlanInstrument" resultMap="PlanInstrument">
-            select instrument_name from plan_instrument where plan_info_id = #{planInfoId}
+            select instrument_name,plan_info_id,instrument_name from plan_instrument where plan_info_id = #{planInfoId}
         </select>
     </mapper>

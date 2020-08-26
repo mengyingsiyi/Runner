@@ -19,7 +19,7 @@ public interface PlanDao {
     int addPlan(PlanInfo planInfo);
 
     //根据用户id查询查询计划相关信息
-    int findPlanById(@Param("useId") Integer userId,@Param("planId") Integer planId);
+    int findPlanById(@Param("userId") Integer userId,@Param("planId") Integer planId);
     //根据用户id修改计划信息
     int updatePlan(PlanInfo planInfo);
     //根据用户id和计划id查询相关信息
