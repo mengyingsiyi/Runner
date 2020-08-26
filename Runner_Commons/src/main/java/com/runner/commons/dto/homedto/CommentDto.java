@@ -13,5 +13,4 @@ import java.util.List;
 public class CommentDto {
     private Integer talkId;
     private String content;
-
 }

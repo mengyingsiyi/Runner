@@ -12,7 +12,7 @@
             <result column="pic_url" property="picurl"></result>
         </collection>
     </resultMap>
-    <insert id="save" useGeneratedKeys="true" keyProperty="dto.tid">
+    <insert id="save">
         INSERT INTO t_talk(talk_user_id,talk_ctime,talk_type,talk_content,talk_topic_id,look_count,f_count,comment_count,collection_count)
         VALUES(#{uid},now(),#{dto.talkType},#{dto.talkContent},#{dto.talkTopicId},0,0,0,0)
     </insert>

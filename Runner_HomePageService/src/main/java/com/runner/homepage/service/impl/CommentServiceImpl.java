@@ -29,7 +29,6 @@ public class CommentServiceImpl implements CommentService {
     private CacheUserUtil cacheUserUtil;
     @Autowired
     private TalkDao talkDao;
-
     /**
      * 发布评论接口
      *

@@ -11,4 +11,5 @@ import com.runner.commons.vo.R;
 public interface FabulousService {
     R save(FabulousDto dto,String token);
     R del(int talkId,String token);
+    R findFabulousUser(int talkId);
 }
