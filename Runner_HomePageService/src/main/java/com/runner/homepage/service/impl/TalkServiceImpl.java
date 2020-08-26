@@ -1,24 +1,23 @@
 package com.runner.homepage.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.runner.commons.constant.SystemConstant;
 import com.runner.commons.dto.PicDto;
 import com.runner.commons.dto.TalkDto;
 import com.runner.commons.dto.VideoDto;
-import com.runner.commons.dto.homedto.HomeTalkDto;
+import com.runner.commons.dto.homedto.TalkCommentDto;
 import com.runner.commons.dto.homedto.TalkDetailDto;
 import com.runner.commons.util.StringUtil;
 import com.runner.commons.vo.R;
 import com.runner.entity.pojo.User;
-import com.runner.entity.pojo.Video;
-import com.runner.homepage.dao.FabulousDao;
-import com.runner.homepage.dao.PicDao;
-import com.runner.homepage.dao.TalkDao;
-import com.runner.homepage.dao.VideoDao;
+import com.runner.homepage.dao.*;
+import com.runner.homepage.dto.TalkFileDto;
 import com.runner.homepage.service.CacheService;
+import com.runner.homepage.service.EsTalkService;
 import com.runner.homepage.service.OssService;
 import com.runner.homepage.service.TalkService;
 import com.runner.homepage.util.CacheUserUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +29,7 @@ import java.util.List;
  * @author: 王永
  * @date: 2020/8/20  10:53
  */
+@Slf4j
 @Service
 public class TalkServiceImpl implements TalkService {
     @Autowired
@@ -53,6 +53,13 @@ public class TalkServiceImpl implements TalkService {
     @Autowired
     private FabulousDao fabulousDao;
 
+    @Autowired
+    private CommentDao commentDao;
+
+    @Autowired
+    private EsTalkService esTalkService;
+    @Autowired
+    public RabbitTemplate template;
     /**
      * 发布动态接口
      *
@@ -104,6 +111,21 @@ public class TalkServiceImpl implements TalkService {
         }
         return R.fail("未知错误");
     }
+    @Override
+    public R save(TalkDto dto, MultipartFile[] files, String token) {
+        User user = cacheUserUtil.getUser(token);
+        if (null != user){
+            TalkFileDto talkFileDto = new TalkFileDto();
+            talkFileDto.setFiles(files);
+            talkFileDto.setUid(user.getUId());
+            talkFileDto.setTalkDto(dto);
+            log.info("发送消息到mq");
+            template.convertSendAndReceive("sendtalk",talkFileDto);
+            return R.ok("发动动态成功");
+        }
+        return R.fail("登录后才能发表动态");
+    }
+
 
     /**
      * 推荐动态列表
@@ -112,9 +134,9 @@ public class TalkServiceImpl implements TalkService {
      */
     @Override
     public R findTalk() {
-        List<HomeTalkDto> homeTalk = dao.findHomeTalk();
-        if (homeTalk != null && homeTalk.size() > 0) {
-            return R.ok(homeTalk);
+        R all = esTalkService.all();
+        if (all.getCode() == 10000){
+            return all;
         }
         return R.fail("还没有找到动态哟");
     }
@@ -123,9 +145,14 @@ public class TalkServiceImpl implements TalkService {
     public R findTalkDetail(int talkId) {
         //分布查询动态的详情
         //1.连接用户、动态、图片查出一条动态的对象
-        //2.连接评论和回复查询出评论回复的集合
-        //3.组装成一个完成的动态详情对象返回前端
         TalkDetailDto detail = dao.findDetail(talkId);
-        return R.ok();
+        if (null != detail) {
+            List<TalkCommentDto> comments = commentDao.findComments(talkId);
+            if (null != comments && comments.size() > 0) {
+                detail.setCommentDtos(comments);
+                return R.ok(detail);
+            }
+        }
+        return R.fail("未找到动态详情");
     }
 }

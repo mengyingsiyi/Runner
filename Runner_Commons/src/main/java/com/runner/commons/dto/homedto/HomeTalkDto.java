@@ -16,6 +16,5 @@ public class HomeTalkDto {
     private String content;
     private Integer lookcount;
     private List<HomePicDto> picurl;
-
     private Integer fabulousCount;
 }

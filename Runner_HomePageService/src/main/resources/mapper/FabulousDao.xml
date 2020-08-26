@@ -12,4 +12,10 @@
         SELECT COUNT(fabulous_talk_id) COUNT FROM t_fabulous
         WHERE fabulous_talk_id = #{talkId}
     </select>
+    <select id="findByTalkId" resultType="com.runner.commons.dto.homedto.FabulousUserDto">
+        SELECT u.`u_nickname` username,u.`u_head` head FROM t_fabulous f
+        INNER JOIN tb_user u
+        ON f.`fabulous_user_id` = u.`u_id`
+        WHERE f.`fabulous_talk_id` = #{talkId}
+    </select>
 </mapper>

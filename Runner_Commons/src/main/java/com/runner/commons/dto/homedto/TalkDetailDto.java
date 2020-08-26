@@ -20,5 +20,5 @@ public class TalkDetailDto {
     private int fcount;
     private int collectionCount;
     private int lookcount;
-    private List<CommentDto> commentDtos;
+    private List<TalkCommentDto> commentDtos;
 }

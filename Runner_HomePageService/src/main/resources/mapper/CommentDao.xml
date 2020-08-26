@@ -15,7 +15,25 @@
         SELECT COUNT(comment_talk_id) COUNT FROM t_comment
         WHERE comment_talk_id = #{talkId}
     </select>
-    <select id="findComments" resultType="com.runner.commons.dto.homedto.TalkCommentDto">
-
+    <resultMap id="Comments" type="com.runner.commons.dto.homedto.TalkCommentDto">
+        <result column="comment_username" property="commentUserName"></result>
+        <result column="comment_head" property="commentUserHead"></result>
+        <result column="comment_desc" property="commentDesc"></result>
+        <result column="comment_ctime" property="commentCtime"></result>
+        <result column="comment_fcount" property="fcount"></result>
+        <collection property="replyDtos" ofType="com.runner.commons.dto.homedto.TalkReplyDto">
+            <result column="reply_username" property="replyUserName"></result>
+            <result column="touser_head" property="replyUserHead"></result>
+            <result column="reply_tousername" property="toUserName"></result>
+            <result column="reply_content" property="replyDesc"></result>
+            <result column="reply_ctime" property="replyCtime"></result>
+            <result column="reply_fcount" property="frCount"></result>
+        </collection>
+    </resultMap>
+    <select id="findComments" resultMap="Comments">
+        SELECT c.`comment_username`,c.`comment_head`,c.`comment_desc`,c.`comment_ctime`,c.`comment_fcount`,r.`reply_username`,r.`touser_head`,r.`reply_tousername`,r.`reply_content`,r.`reply_ctime`,r.`reply_fcount` FROM t_comment c
+        LEFT JOIN t_reply r
+        ON r.`reply_comment_id` = c.`comment_id`
+        WHERE c.`comment_talk_id` = #{talkId}
     </select>
 </mapper>

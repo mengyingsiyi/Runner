@@ -1,6 +1,7 @@
 package com.runner.homepage.service.impl;
 
 import com.runner.commons.dto.homedto.FabulousDto;
+import com.runner.commons.dto.homedto.FabulousUserDto;
 import com.runner.commons.util.StringUtil;
 import com.runner.commons.vo.R;
 import com.runner.entity.pojo.User;
@@ -11,6 +12,8 @@ import com.runner.homepage.service.FabulousService;
 import com.runner.homepage.util.CacheUserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Description:
@@ -57,6 +60,15 @@ public class FabulousServiceImpl implements FabulousService {
             return R.ok();
         }
         return R.fail("取消点赞失败");
+    }
+
+    @Override
+    public R findFabulousUser(int talkId) {
+        List<FabulousUserDto> userDtoList = dao.findByTalkId(talkId);
+        if (null != userDtoList && userDtoList.size() > 0){
+            return R.ok(userDtoList);
+        }
+        return R.fail("还没有点赞的用户");
     }
 
 }

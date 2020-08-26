@@ -23,6 +23,11 @@ public class TalkController {
         return service.save(dto,file,token);
     }
 
+    @PostMapping("/sendTalk.do")
+    public R sendTalk(@RequestJson TalkDto dto, @RequestJson MultipartFile[] files, @RequestJson String token){
+        return service.save(dto,files,token);
+    }
+
     @PostMapping("/findHomeTalk.do")
     public R findHomeTalk(){
         return service.findTalk();

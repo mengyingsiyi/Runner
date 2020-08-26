@@ -1,4 +1,13 @@
 spring:
+  elasticsearch:
+    rest:
+      uris: 39.99.158.56:9200
+  rabbitmq:
+    host: 39.99.158.56
+    port: 5672
+    username: root
+    password: root
+    virtual-host: /
   application:
     name: runnerhomepageservice
   cloud:

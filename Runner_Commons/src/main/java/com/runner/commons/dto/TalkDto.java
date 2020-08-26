@@ -2,6 +2,7 @@ package com.runner.commons.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  * @date: 2020/8/20  10:55
  */
 @Data
-public class TalkDto {
+public class TalkDto implements Serializable {
     private Integer tid;
 
     private Integer talkType;
