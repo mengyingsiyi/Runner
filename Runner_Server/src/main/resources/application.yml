@@ -1,0 +1,40 @@
+#
+#spring:
+#  application:
+#    name: serverserver
+#  cloud:
+#    nacos:
+#      discovery: #使用nacos作为服务的注册中心
+#        server-addr: 39.99.158.56:8848
+#      config: #使用nacos作为服务的配置中心
+#        server-addr: 39.99.158.56:8848
+#        #file-extension: yaml #更改远程配置的后缀名
+#  #  sleuth:
+#  #    sampler:
+#  #      probability: 1 #采样率
+#  #    zipkin:
+#  #      sender:
+#  #        type: web #使用http协议进行数据的传输
+#  #      base-url: 39.99.158.56:9411/ #zipkin的控制台的地址
+##  datasource:
+##    driver-class-name: com.mysql.cj.jdbc.Driver
+##    url: jdbc:mysql://39.99.161.137:3306/runner?serverTimezone=Asia/Shanghai
+##    username: root
+##    password: root
+##    type: com.alibaba.druid.pool.DruidDataSource
+#mybatis:
+#  mapper-locations: classpath*:mapper/*Mapper.xml
+#
+## 采用非对称加密的 公钥和私钥
+#runner:
+#  pass:
+#    pubkey: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCk5nmMkNJy73KGfXFKHa+ZGLMnzByysSzjwwl8dMO0d1OPPcwBpohviMdMYU45Ji/iIGLUbR7HJLtnxxk6uiriZsb3/WAigLy3/66yfX40i1kqm0vMpS03JV7QPt4rpWsG2rrpqAMbtY5ytR/DDDHZBWwMkWKEWw8SGmPDfiV13wIDAQAB
+#    prikey: MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAKTmeYyQ0nLvcoZ9cUodr5kYsyfMHLKxLOPDCXx0w7R3U489zAGmiG+Ix0xhTjkmL+IgYtRtHscku2fHGTq6KuJmxvf9YCKAvLf/rrJ9fjSLWSqbS8ylLTclXtA+3iulawbauumoAxu1jnK1H8MMMdkFbAyRYoRbDxIaY8N+JXXfAgMBAAECgYBkq7gFEt0IAhr+9FJXlyv+4U9uunPCu9vV6No/uuFHqZm/11BWqZ6dyPkzLiydQyz0diUf3sZteYVX4/sJGWLX/loAwf2pMXrSm/q2pYaVHO5sCCsn0yBOFPnqAskofzt2k99Hz6UtMty+F/90psogEp2+9A1MD13bgxNfkLCHYQJBAM8mobngwvg1umpbf9Y+w58IwcZ5k+qT2q3kHC+uhFSQUIO/AH2IDIzmdMioE2VZtQryxvLwOigg7p9OVTO6u0cCQQDLyT3CAQkb9YqjJl3d2AnzSpSupAZyzuUxPNmgUepKswfVhQsY3bEJwJgRuM4OLGotSn1WZhtIGL8O7qpLY4ypAkAR3w1Y0fFAJLJ+doJi42tRDxpYmyiNtk/JbMKZwn6cJQ8tLo9GRTR/+2nb3dQ+jCy4UxWi4+LAj4bGq6ViHxwFAkEAiXH/r1vXcv4XNZbo9HmDrI3+3hNPLhwRRTZPaewV47AAdqi3JVxQzc0SQ9GrWK/oJQf6pU1U1TmrkzyxqwtHkQI/EsS0tVHx0ko1RWnGH2KEFHWGVT21ueGmXvI4tzMHzXCEFWrfSYylpw4MMaD4bQjIae3IRJsDaRsES8pBR6tC
+#runner_Provider:
+#  redis:
+#    host: 39.99.161.137
+#    port: 6379
+#server:
+#  port: 8123
+
+

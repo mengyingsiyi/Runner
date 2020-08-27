@@ -22,6 +22,12 @@ spring:
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
+  rabbitmq:
+    host: 47.92.94.198
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
 server:

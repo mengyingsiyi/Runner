@@ -3,6 +3,7 @@ package com.runner.homepage.dao;
 import com.runner.commons.dto.PicDto;
 import com.runner.commons.dto.TalkDto;
 import com.runner.commons.dto.homedto.HomeTalkDto;
+import com.runner.commons.dto.homedto.TalkDetailDto;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -16,5 +17,11 @@ public interface TalkDao {
     int save(@Param("dto") TalkDto dto, @Param("uid") int uid);
 
     List<HomeTalkDto> findHomeTalk();
+
+    int updateFCount(@Param("talkId") int talkId, @Param("num") int num);
+
+    int updateCCount(@Param("talkId") int talkId);
+
+    TalkDetailDto findDetail(int talkId);
 
 }

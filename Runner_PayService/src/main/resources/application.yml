@@ -6,7 +6,7 @@ spring:
   cloud:
     nacos:
       discovery: #使用Nacos作为服务的注册中心
-        server-addr: 39.99.161.137:8848  #注册中心地址
+        server-addr: 39.99.158.56:8848  #注册中心地址
   datasource:
     derver: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/db_runner?serverTimezone=Asia/Shanghai

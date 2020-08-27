@@ -24,7 +24,17 @@ public class PlanController {
     }
 
     @GetMapping("findplan.do")
-    public R findPlan(@RequestParam Integer planInfoId,@RequestParam String token){
-        return planService.findPlanById(planInfoId,token);
+    public R findPlan(@RequestParam Integer planId,@RequestParam String token){
+        return planService.findPlanById(planId,token);
+    }
+
+    @GetMapping("showplanhome.do")
+    public R showPlanHome(@RequestParam Integer planId,@RequestParam String token){
+        return planService.showPlanHome(planId,token);
+    }
+
+    @GetMapping("showallplan.do")
+    public R showAllPlan(@RequestParam String token){
+        return planService.showAllPlan(token);
     }
 }

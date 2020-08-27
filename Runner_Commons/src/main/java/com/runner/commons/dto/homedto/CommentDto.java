@@ -2,6 +2,8 @@ package com.runner.commons.dto.homedto;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @Description:
  * @author: 王永

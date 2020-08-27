@@ -26,4 +26,6 @@ public interface UserService {
     R logout(String token);
 
     R updatePassword(UpdatePasswordDto passwordDto);
+
+    R getUserFromToken(String token);
 }

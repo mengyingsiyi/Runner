@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PlanInfoDto {
-    private Integer planInfoId;
+    private Integer planId;
     private String planName;
     private Integer planLevel;
     private Integer fitnessGoals;

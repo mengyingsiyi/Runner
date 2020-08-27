@@ -22,5 +22,11 @@ public interface PlanService {
     R savePlan(@RequestBody PlanInfoDto planInfoDto, @RequestParam String token);
 
     @GetMapping(value = "api/plan/findplan.do",consumes = MediaType.APPLICATION_JSON_VALUE)
-    R showPlan(@RequestParam Integer planInfoId,@RequestParam String token);
+    R showPlan(@RequestParam Integer planId,@RequestParam String token);
+
+    @GetMapping(value = "api/plan/showplanhome.do",consumes = MediaType.APPLICATION_JSON_VALUE)
+    R showPlanHome(@RequestParam Integer planId,@RequestParam String token);
+
+    @GetMapping(value = "api/plan/showallplan.do",consumes = MediaType.APPLICATION_JSON_VALUE)
+    R showAllPlan(@RequestParam String token);
 }

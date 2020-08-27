@@ -2,6 +2,7 @@ package com.runner.userservice.service.impl;
 
 import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.runner.cache.exception.CacheException;
 import com.runner.commons.constant.SystemConstant;
 import com.runner.commons.dto.UserCodeLoginDto;
@@ -91,7 +92,7 @@ public class UserServiceImpl implements UserService {
         if (!cacheService.check(SystemConstant.USER_PHONE+loginDto.getUTel().trim())) {
             //校验账户是否存在
             User user = userDao.selectByTel(loginDto.getUTel());
-            //System.out.println(user);
+            System.out.println(JSON.toJSONString(user));
             if (user!=null) {
                 //说明有这个账户，可以进行密码对比
                 if (user.getUPassword().equals(EncryptUtil.rsaEnc(key,loginDto.getUPassword()))) {
@@ -202,8 +203,9 @@ public class UserServiceImpl implements UserService {
         //判断令牌是否存在，不存在直接提示已退出
         if (cacheService.check(SystemConstant.USER_TOKEN + token)) {
             System.out.println("redis里存在token--------------------------->" + token);
-            User user = JSON.parseObject(cacheService.get(SystemConstant.USER_TOKEN + token), User.class);
-            System.out.println("获取到的User------------------>" + user);
+            User user = JSON.parseObject(StringUtil.jsonHandle(cacheService.get(SystemConstant.USER_TOKEN + token)), User.class);
+            System.out.println(getUserFromToken(token));
+            System.out.println("获取到的User------------------>" + cacheService.get(SystemConstant.USER_TOKEN + token));
             if (null != user) {
                 //删除redis里的user信息
                 cacheService.del(SystemConstant.USER_PHONE + user.getUTel());
@@ -215,7 +217,7 @@ public class UserServiceImpl implements UserService {
         /*if (StringUtil.checkStr(token)){
             System.out.println("a");
             User user = JSON.parseObject(cacheService.get(SystemConstant.USER_TOKEN + token), User.class);
-            System.out.println("logout_____"+user);
+            System.out.println("logout_____"+user);w3sz
             if (null!=user) {
                 //删除redis里的user信息
                 cacheService.del(SystemConstant.USER_PHONE+user.getUTel());
@@ -228,6 +230,11 @@ public class UserServiceImpl implements UserService {
     }*/
     }
 
+    /**
+     * 找回密码
+     * @param passwordDto 找回密码封装dto
+     * @return
+     */
     @Override
     public R updatePassword(UpdatePasswordDto passwordDto) {
         //判断用户输入的验证码和redis的验证码是否一致
@@ -243,6 +250,24 @@ public class UserServiceImpl implements UserService {
             }
         }
         return R.fail("发动机发生故障,修改失败");
+    }
+
+
+    /**
+     * 从token中获取user信息
+     * @param token
+     * @return
+     */
+    @Override
+    public R getUserFromToken(String token) {
+        if (StringUtil.checkStr(token)) {
+            if (cacheService.check(SystemConstant.USER_TOKEN+token)){
+                JSONObject user = JSON.parseObject(StringUtil.jsonHandle(cacheService.get(SystemConstant.USER_TOKEN + token)));
+                return R.ok("查好了",user);
+            }
+            return R.fail("令牌不存在或者已经过期");
+        }
+        return R.fail("给老子个令牌撒");
     }
 
 }

@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GoodsOrderDao {
     int save(Order order);
-    Order findById(Integer id);
+    Order findById(Long id);
     int updateFlagById(@Param("id") Integer id, @Param("flag") int flag);
 }

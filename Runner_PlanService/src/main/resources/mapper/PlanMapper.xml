@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
     <mapper namespace="com.runner.plan.dao.PlanDao">
-        <insert id="addPlan">
+
+        <resultMap id="PlanInfo" type="com.runner.entity.pojo.PlanInfo">
+            <id property="planInfoId" column="plan_info_id"/>
+            <result property="planName" column="plan_name"/>
+            <result property="planLevel" column="plan_level"/>
+            <result property="fitnessGoals" column="fitness_goals"/>
+            <result property="choiceRun" column="choice_run"/>
+            <result property="choiceInstrument" column="choice_instrument"/>
+            <result property="inputHeight" column="input_height"/>
+            <result property="weightGoals" column="weight_goals"/>
+            <result property="weekExerciseDays" column="week_exercise_days"/>
+            <result property="dayExerciseMinute" column="day_exercise_minute"/>
+            <result property="planTime" column="plan_time"/>
+            <result property="userId" column="user_id"/>
+            <result property="planId" column="plan_id"/>
+        </resultMap>
+
+        <insert id="addPlan" useGeneratedKeys="true" keyProperty="planInfoId" >
             insert into plan_info(plan_name,plan_level,fitness_goals,choice_run,choice_instrument,
-                input_height,input_weight,weight_goals,week_exercise_days,day_exercise_minute,plan_time,user_id)
+                input_height,input_weight,weight_goals,week_exercise_days,day_exercise_minute,plan_time,user_id,plan_id)
                     values (#{planName},#{planLevel},#{fitnessGoals},#{choiceRun},#{choiceInstrument},
                     #{inputHeight},#{inputWeight},#{weightGoals},#{weekExerciseDays},#{dayExerciseMinute},
-                    #{planTime},#{userId})
+                    #{planTime},#{userId},#{planId})
         </insert>
 
         <update id="updatePlan">
@@ -14,26 +31,36 @@
             <set>
                 <if test="planName != null">plan_name=#{planName},</if>
                 <if test="fitnessGoals != null">fitness_goals=#{fitnessGoals},</if>
-                <if test="choice_run != null">choice_run=#{choiceRun},</if>
-                <if test="choice_instrument != null">choice_instrument=#{choiceInstrument},</if>
-                <if test="input_height != null">input_height=#{inputHeight},</if>
-                <if test="input_weight != null">input_weight=#{inputWeight},</if>
-                <if test="weight_goals != null">weight_goals=#{weightGoals},</if>
-                <if test="week_exercise_days != null">week_exercise_days=#{weekExerciseDays},</if>
-                <if test="day_exercise_minute != null">day_exercise_minute=#{dayExerciseMinute},</if>
-                <if test="plan_time != null">plan_time=#{planTime},</if>
+                <if test="choiceRun != null">choice_run=#{choiceRun},</if>
+                <if test="choiceInstrument != null">choice_instrument=#{choiceInstrument},</if>
+                <if test="inputHeight != null">input_height=#{inputHeight},</if>
+                <if test="inputWeight != null">input_weight=#{inputWeight},</if>
+                <if test="weightGoals != null">weight_goals=#{weightGoals},</if>
+                <if test="weekExerciseDays != null">week_exercise_days=#{weekExerciseDays},</if>
+                <if test="dayExerciseMinute != null">day_exercise_minute=#{dayExerciseMinute},</if>
+                <if test="planTime != null">plan_time=#{planTime},</if>
             </set>
-            where user_id = #{userId} and plan_info_id = #{planInfoId}
+            where user_id = #{userId} and plan_id = #{planId}
         </update>
 
         <select id="findPlanById" resultType="int">
-            select count(*) from plan_info where user_id = #{userId}
+            select count(*) from plan_info where user_id = #{userId} and plan_id =#{planId}
         </select>
 
-        <select id="findPlanInfo" resultType="com.runner.entity.pojo.PlanInfo">
-            select plan_name,plan_level,fitness_goals,choice_run,choice_instrument
+        <select id="findPlanInfo" resultType="com.runner.entity.pojo.PlanInfo" resultMap="PlanInfo">
+            select plan_info_id, plan_name,plan_level,fitness_goals,choice_run,choice_instrument
                 ,input_height,input_weight,weight_goals,week_exercise_days,
-                day_exercise_minute,plan_time from plan_info where plan_info_id=#{planInfoId}
+                day_exercise_minute,plan_time from plan_info where plan_id=#{planId}
                 and user_id=#{userId}
+        </select>
+
+        <select id="findPlanDto" resultType="com.runner.commons.dto.PlanDto">
+            select plan_type as planType,plan_time as planTime,plan_level as planLevel,
+            week_exercise_days as weekExerciseDays ,day_exercise_minute as dayExerciseMinute
+             from plan_home ph left join plan_info pi on ph.plan_id = pi.plan_id where ph.plan_id = #{planId} and ph.user_id = #{UserId}
+        </select>
+
+        <select id="findAllPlan" resultType="com.runner.entity.pojo.Plan">
+            select plan_id as planId,plan_type as planType from plan_home where user_id = #{userId}
         </select>
     </mapper>

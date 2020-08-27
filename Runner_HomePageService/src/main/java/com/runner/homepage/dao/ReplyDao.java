@@ -1,6 +1,7 @@
 package com.runner.homepage.dao;
 
 import com.runner.commons.dto.homedto.ReplyDto;
+import com.runner.entity.pojo.Reply;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +12,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ReplyDao {
-    int save(@Param("dto") ReplyDto dto, @Param("uid") int uid);
+    int save(@Param("reply") Reply reply, @Param("uid") int uid);
 }

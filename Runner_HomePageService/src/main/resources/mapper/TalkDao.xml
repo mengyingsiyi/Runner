@@ -7,19 +7,69 @@
         <result column="u_nickname" property="nickname"></result>
         <result column="u_head" property="head"></result>
         <result column="look_count" property="lookcount"></result>
+        <result column="f_count" property="fabulousCount"></result>
         <collection property="picurl" ofType="com.runner.commons.dto.homedto.HomePicDto">
             <result column="pic_url" property="picurl"></result>
         </collection>
     </resultMap>
-    <insert id="save" useGeneratedKeys="true" keyProperty="dto.tid">
-        INSERT INTO t_talk(talk_user_id,talk_ctime,talk_type,talk_content,talk_topic_id)
-        VALUES(#{uid},now(),#{dto.talkType},#{dto.talkContent},#{dto.talkTopicId})
+    <insert id="save">
+        INSERT INTO t_talk(talk_user_id,talk_ctime,talk_type,talk_content,talk_topic_id,look_count,f_count,comment_count,collection_count)
+        VALUES(#{uid},now(),#{dto.talkType},#{dto.talkContent},#{dto.talkTopicId},0,0,0,0)
     </insert>
     <select id="findHomeTalk" resultMap="findTalk">
-        SELECT t.`talk_id` ,u.`u_nickname` ,u.`u_head` ,t.`talk_content` ,t.`look_count` ,p.`pic_url`  FROM t_talk t
+        SELECT t.`f_count`,t.`talk_id` ,u.`u_nickname` ,u.`u_head` ,t.`talk_content` ,t.`look_count` ,p.`pic_url`  FROM t_talk t
         INNER JOIN t_picture p
         ON p.`pic_talk_id` = t.`talk_id`
         INNER JOIN tb_user u
         ON t.`talk_user_id` = u.`u_id`
     </select>
+    <resultMap id="detail" type="com.runner.commons.dto.homedto.TalkDetailDto">
+        <result column="u_nickname" property="username"></result>
+        <result column="u_head" property="head"></result>
+        <result column="talk_content" property="content"></result>
+        <result column="f_count" property="fcount"></result>
+        <result column="look_count" property="lookcount"></result>
+        <result column="collection_count" property="collectionCount"></result>
+        <result column="comment_count" property="commentCount"></result>
+        <collection property="picDtos" ofType="com.runner.commons.dto.homedto.HomePicDto">
+            <result column="pic_url" property="picurl"></result>
+        </collection>
+    </resultMap>
+    <select id="findDetail" resultMap="detail">
+<!--        SELECT-->
+<!--        u.`u_nickname`,u.`u_head`,-->
+<!--        t.`talk_content`,p.`pic_url`,t.`f_count`, t.`look_count`,-->
+<!--        t.`comment_count`,t.`collection_count`,-->
+<!--        c.`comment_desc`,c.`comment_ctime`,c.`comment_fcount`,-->
+<!--        c.`comment_username`,c.`comment_head`,-->
+<!--        r.`reply_username`,r.`touser_head`,r.`reply_tousername`,-->
+<!--        r.`reply_content`,r.`reply_ctime`,r.`reply_fcount`-->
+<!--        FROM t_talk t-->
+<!--        INNER JOIN t_picture p-->
+<!--        ON p.`pic_talk_id` = t.`talk_id`-->
+<!--        INNER JOIN t_comment c-->
+<!--        ON t.`talk_id` = c.`comment_talk_id`-->
+<!--        left JOIN t_reply r-->
+<!--        ON c.`comment_id` = r.`reply_comment_id`-->
+<!--        INNER JOIN tb_user u-->
+<!--        ON c.`comment_user_id` = u.`u_id`-->
+<!--        WHERE t.`talk_id` = #{talkId}-->
+
+        SELECT u.`u_nickname`,u.`u_head`,
+        t.`talk_content`,p.`pic_url`,t.`f_count`, t.`look_count`,
+        t.`comment_count`,t.`collection_count`  FROM t_talk t
+        INNER JOIN t_picture p
+        ON p.`pic_talk_id` = t.`talk_id`
+        INNER JOIN tb_user u
+        ON t.`talk_user_id` = u.`u_id`
+        where t.`talk_id` = #{talkId}
+    </select>
+    <update id="updateCCount">
+         update t_talk set comment_count = comment_count+1
+        where talk_id = #{talkId}
+    </update>
+    <update id="updateFCount" >
+        update t_talk set f_count = f_count+#{num}
+        where talk_id = #{talkId}
+    </update>
 </mapper>

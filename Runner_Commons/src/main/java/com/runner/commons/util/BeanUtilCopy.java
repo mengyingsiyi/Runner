@@ -11,31 +11,45 @@ import java.lang.reflect.Field;
  */
 public class BeanUtilCopy {
 
-
-    public static <T> T copy(Class<T> clazz, Object obj) {
+    /**
+     * 类的属性复制：反射实现 dto 复制 pojo
+     *
+     * @param pojoClz pojo类的 Class 对象
+     * @param dto dto类的实例对象
+     * @param <T>
+     * @return
+     */
+    public static <T> T copyDto(Class<T> pojoClz, Object dto) {
         try {
-            T t = clazz.newInstance();
-            Field[] fields = obj.getClass().getDeclaredFields();
+            T pojo = pojoClz.getConstructor().newInstance();
+            Field[] fields = dto.getClass().getDeclaredFields();
+
             for (Field field : fields) {
-                String fn;
-                //获取注解
-                BeanDtoCopy annotation = field.getAnnotation(BeanDtoCopy.class);
-                if (null != annotation){
-                    fn = annotation.value();
-                }else {
-                    fn = field.getName();
+                String value;
+                BeanDtoCopy bcf = field.getAnnotation(BeanDtoCopy.class);
+                if (bcf != null) {
+                    value = bcf.value();
+                } else {
+                    value = field.getName();
                 }
-                //判断pojo是否有对应的属性
-                Field fd = clazz.getDeclaredField(fn);
-                if (fd != null){
-                    fd.setAccessible(true);
-                    field.setAccessible(true);
-                    fd.set(t,field.get(obj));
+                try {
+                    Field fieldT = pojoClz.getDeclaredField(value);
+                    if (null != fieldT){
+                        fieldT.setAccessible(true);
+                        field.setAccessible(true);
+                        fieldT.set(pojo,field.get(dto));
+                    }
+                }catch (NoSuchFieldException e){
+                    //捕获了pojo中有pojo中没有的属性的异常
+                    //e.printStackTrace();
                 }
+
             }
-            return t;
+            return pojo;
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
+
     }
 }

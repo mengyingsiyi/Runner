@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
     <mapper namespace="com.runner.plan.dao.PlanInstrumentDao">
+    <resultMap id="PlanInstrument" type="com.runner.entity.pojo.PlanInstrument">
+        <id property="instrumentId" column="instrument_id"/>
+        <result property="planInfoId" column="plan_info_id"/>
+        <result property="instrumentName" column="instrument_name"/>
+    </resultMap>
         <update id="updateInstrumentById">
             update plan_instrument set instrument_name=#{instrumentName} where plan_info_id = #{planInfoId}
         </update>
@@ -8,7 +13,7 @@
             insert into plan_instrument(instrument_name,plan_info_id) values (#{instrumentName},#{planInfoId})
         </insert>
 
-        <select id="findInstrumentById" resultType="com.runner.entity.pojo.PlanInstrument">
-            select instrument_name from plan_instrument where #{planInfoId}
+        <select id="findInstrumentById" resultType="com.runner.entity.pojo.PlanInstrument" resultMap="PlanInstrument">
+            select instrument_name,plan_info_id,instrument_name from plan_instrument where plan_info_id = #{planInfoId}
         </select>
     </mapper>

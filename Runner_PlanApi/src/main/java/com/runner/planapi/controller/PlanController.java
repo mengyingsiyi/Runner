@@ -31,8 +31,28 @@ public class PlanController{
 
     @ApiOperation("显示计划详情")
     @GetMapping("showpaln.do")
-    public R showPlan(@RequestParam Integer planInfoId,HttpServletRequest request){
+    public R showPlan(@RequestParam Integer planId,HttpServletRequest request){
         String token = request.getHeader(SystemConstant.TOKEN_HEADER);
-        return service.showPlan(planInfoId,token);
+        return service.showPlan(planId,token);
     }
+
+
+    @ApiOperation("计划基本详情")
+    @GetMapping("showplanhome.do")
+    public R showPlanHome(@RequestParam Integer planId,HttpServletRequest request){
+        String token = request.getHeader(SystemConstant.TOKEN_HEADER);
+        return service.showPlanHome(planId,token);
+    }
+
+
+    @ApiOperation("全部计划")
+    @GetMapping("showallplan.do")
+    public R showAllPlan(HttpServletRequest request){
+        String token = request.getHeader(SystemConstant.TOKEN_HEADER);
+        return service.showAllPlan(token);
+    }
+
+
+
+
 }

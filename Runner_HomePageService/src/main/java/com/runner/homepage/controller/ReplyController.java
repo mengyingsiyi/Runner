@@ -3,12 +3,11 @@ package com.runner.homepage.controller;
 import com.runner.commons.dto.homedto.CommentDto;
 import com.runner.commons.dto.homedto.ReplyDto;
 import com.runner.commons.vo.R;
+import com.runner.homepage.annotation.RequestJson;
 import com.runner.homepage.service.CommentService;
 import com.runner.homepage.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Description:
@@ -22,7 +21,7 @@ public class ReplyController {
     private ReplyService service;
 
     @PostMapping("/save.do")
-    public R save(ReplyDto dto, String token){
+    public R save(@RequestBody ReplyDto dto, @RequestParam String token){
         return service.save(dto,token);
     }
 }

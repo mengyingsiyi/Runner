@@ -20,7 +20,7 @@
         <module>Runner_SportsApi</module>
         <module>Runner_HomePageService</module>
         <module>Runner_HomePageApi</module>
-
+        <module>Runner_Server</module>
 
 
     </modules>

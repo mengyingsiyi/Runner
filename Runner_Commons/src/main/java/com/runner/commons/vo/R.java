@@ -18,6 +18,7 @@ public class R<T> {
 
     public static <E> R<E> ok() {
         R<E> r = new R<>();
+        r.setMsg("OK");
         r.setCode(ResultConfig.R_OK);
 
         return r;

@@ -18,4 +18,12 @@ public class Reply {
     private Integer replyArticleId;
 
     private String replyContent;
+
+    private String username;
+
+    private String toUserName;
+
+    private int replyToUserId;
+
+    private String toUserHead;
 }

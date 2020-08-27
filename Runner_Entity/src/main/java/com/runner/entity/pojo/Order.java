@@ -12,7 +12,7 @@ import java.util.Date;
 @Data
 public class Order {
 
-     private  Integer orderId;
+     private long orderId;
        private String orderAdd;
         private Integer shopId;
         private Double price;

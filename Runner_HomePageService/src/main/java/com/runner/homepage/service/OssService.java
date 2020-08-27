@@ -5,6 +5,7 @@ import com.runner.commons.vo.R;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @Description:
@@ -13,5 +14,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface OssService {
     R uploadImg(MultipartFile file);
+    R uploadImgs(MultipartFile[] files,int tid);
     R uploadVideo(MultipartFile file, HttpServletRequest request);
 }

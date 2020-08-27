@@ -2,6 +2,8 @@ package com.runner.commons.dto.homedto;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @Description:
  * @author: 王永
@@ -9,8 +11,12 @@ import lombok.Data;
  */
 @Data
 public class ReplyDto {
-    private Integer talkId;
-    private Integer touid;
-    private Integer commentId;
+
+    private Integer replyTalkId;
+
+    private Integer replyCommentId;
+
+    private int replyToUserId;
+
     private String replyContent;
 }

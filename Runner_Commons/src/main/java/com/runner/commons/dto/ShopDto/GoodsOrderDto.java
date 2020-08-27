@@ -1,6 +1,6 @@
 package com.runner.commons.dto.ShopDto;
 
-import com.sun.scenario.effect.impl.prism.PrImage;
+//import com.sun.scenario.effect.impl.prism.PrImage;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class GoodsOrderDto {
-    private Integer orderId;
+
     private Integer shopId;
     private  Integer num;
     private String add;
